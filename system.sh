@@ -8,7 +8,7 @@ UP=`expr $UP / 3600 / 24`
 
 echo "Temps ecoule depuis le dernier redemarrage : $UP jours"
 
-echo "Utilisation globale moyenne CPU (5 min/10 min/15 min) : `cat /proc/loadavg | cut -d ' ' -f 1-3`"
+echo "Utilisation globale moyenne CPU (1 min/5 min/15 min) : `cat /proc/loadavg | cut -d ' ' -f 1-3`"
 
 NBUSERS=`who | wc -l`
 if [ $NBUSERS -eq 1 ]
