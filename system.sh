@@ -212,10 +212,10 @@ done
 						                      # l'intervalle en heures 
 			heures=$(($INTERVALLE % 24))        # idem pour les heures                                
 			INTERVALLE=$(( ($INTERVALLE - $heures)/24 ))  # intervalle expr. en jours 
-			echo "Processus (PID/NOM) : `echo $LIGNE | cut -d ' ' -f 1,2`"
 			SAVE="$SAVE ($INTERVALLE jours, $heures heures et $minutes minutes.)"
 		done < /tmp/PSEProc.$$
 
+		echo "PID\t(nom)\tticks\tdurée"
 		echo $SAVE | sort -r -k 4
 		;;
 
@@ -291,6 +291,9 @@ then
 		fi
 	done
 fi
+
+
+
 
 rm /tmp/PSEProc.$$
 exit 0
