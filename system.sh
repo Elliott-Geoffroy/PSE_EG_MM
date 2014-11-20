@@ -2,47 +2,47 @@
 
 #A MINIMA
 
-echo "Systeme d'exploitation : `cat /proc/sys/kernel/ostype`"
+echo "Système d'exploitation : `cat /proc/sys/kernel/ostype`"
 echo "Version du noyau : `cat /proc/sys/kernel/osrelease`"
 
 UP=`cat /proc/uptime | cut -d ' ' -f 1 | cut -d '.' -f 1` # Je ne prend que la premiere valeur renvoyee par /proc/uptime puis je garde uniquement la partie entiere de la valeur retournee.
 UP=`expr $UP / 3600 / 24`
 
-echo "Temps ecoule depuis le dernier redemarrage : $UP jours"
+echo "Temps écoulé depuis le dernier redémarrage : $UP jours"
 
 echo "Utilisation globale moyenne CPU (1 min/5 min/15 min) : `cat /proc/loadavg | cut -d ' ' -f 1-3`"
 
 ramTot=`cat /proc/meminfo | head -1 | tr -s ' ' | cut -d ' ' -f 2`
 ramFree=`cat /proc/meminfo | head -2 | tr -s ' ' | cut -d ' ' -f 2 | tail -1`
 
-echo "Memoire Libre / Memoire totale : $ramFree Kb / $ramTot Kb" 
+echo "Mémoire Libre / Mémoire totale : $ramFree Kb / $ramTot Kb" 
 
 
 NBUSERS=`who | wc -l`
 if [ $NBUSERS -eq 1 ]
 then
-	echo "Il y a actuellement $NBUSERS utilisateur connecte (vous)"
+	echo "Il y a actuellement $NBUSERS utilisateur connecté (vous)"
 else
-	echo "Il y a actuellement $NBUSERS utilisateurs connectes"
+	echo "Il y a actuellement $NBUSERS utilisateurs connectés"
 fi
 
-echo "les 5 processus ayant consomme le plus de temps CPU depuis leur lancement :"
+echo "\nLes 5 processus ayant consomme le plus de temps CPU depuis leur lancement :"
 echo "PID\tnom\t\ttics"
 cat /proc/[0-9]*/stat | cut -d ' ' -f  1,2,15 | sort -t " " -k 3 -n -r | head -5 | tr " " "\t"
 
-echo "les 5 fichiers (incluant les répertoires) occupant le plus d’espace disque"
+echo "\nLes 5 fichiers (incluant les répertoires) occupant le plus d’espace disque"
 echo "taille (Octets)\tnom"
 find . -type f 2>/dev/null | xargs du -b 2>/dev/null | sort -n -r | head -5
 
 #A MEDIA
 
 #PARTIE PROCESSUS
-echo "nombre de processus desire ?"
+echo "\nNombre de processus désiré ?"
 read prcss
 echo $prcss | grep -E "^[0-9]+$" 1>/dev/null
 while [ $? != 0 ]
 do
-	echo "nombre de processus desire ? (il faut entrer un nombre)"
+	echo "\nNombre de processus désiré ? (il faut entrer un nombre)"
 	read prcss
 	
 	echo $prcss | grep -E "^[0-9]+$" 1>/dev/null
@@ -51,33 +51,33 @@ done
 
 if [ $prcss -eq 1 ]
 then
-	echo "le $prcss processus ayant consomme le plus de temps CPU depuis sont lancement :"
-	echo "PID\tnom\t\ttics"
+	echo "Le $prcss processus ayant consommé le plus de temps CPU depuis son lancement :"
+	echo "PID\tnom\t\tticks"
 else
-	echo "les $prcss processus ayant consomme le plus de temps CPU depuis leurs lancement :"
-	echo "PID\tnom\t\ttics"
+	echo "Les $prcss processus ayant consommés le plus de temps CPU depuis leur lancement :"
+	echo "PID\tnom\t\tticks"
 fi
 cat /proc/[0-9]*/stat | cut -d ' ' -f  1,2,15 | sort -t " " -k 3 -n -r | head -"$prcss" | tr " " "\t"
 
 
 #PARTIE DISK UTIL.
-echo "nombre de fichier desire ?"
+echo "\nNombre de fichier désiré ?"
 read prcss
 echo $prcss | grep -E "^[0-9]+$" 1>/dev/null
 while [ $? -ne 0 ]
 do
-	echo "nombre de fichier desire ? (il faut entrer un nombre)"
+	echo "\nNombre de fichier désiré ? (il faut entrer un nombre)"
 	read prcss
 	
 	echo $prcss | grep -E "^[0-9]+$" 1>/dev/null
 done
 
-echo "Voulez vous changer de repertoire courant ? (y/n)"
+echo "\nVoulez-vous changer de répertoire courant ? (y/n)"
 read yn
 
 while ([ "$yn" != "y" ] && [ "$yn" != "n" ])
 do
-	echo "(y/n)"
+	echo "\n(y/n)"
 	read yn
 done
 
@@ -86,7 +86,7 @@ then
 	boo=0
 	while [ $boo -eq 0 ]
 	do
-		echo "Entrez le repertoire souhaite (chemin relatif):"
+		echo "\nEntrez le répertoire souhaité (chemin relatif):"
 		read chemin
 			if echo $chemin | grep -E "^[.]{1,2}[/].*$" 1>/dev/null
 			then : 
@@ -97,7 +97,7 @@ then
 		then
 			boo=1
 		else
-			echo "repertoire \"$chemin\" inexistant" >&2	
+			echo "Répertoire \"$chemin\" inexistant" >&2	
 		fi 
 	done
 elif [ "$yn" = "n" ]
@@ -105,20 +105,20 @@ then
 	chemin="./"
 fi
 
-	echo "Recherche dans repertoire : \"$chemin\""
+	echo "Recherche dans répertoire : \"$chemin\""
 if [ $prcss -eq 1 ]
 then
-	echo "le $prcss fichier (incluant les répertoires) occupant le plus d’espace disque"
+	echo "\nLe $prcss fichier (incluant les répertoires) occupant le plus d’espace disque"
 else
-	echo "les $prcss fichiers (incluant les répertoires) occupant le plus d’espace disque"
+	echo "\nLes $prcss fichiers (incluant les répertoires) occupant le plus d’espace disque"
 fi
-	echo "taille (Octets)\tnom"
+	echo "\ntaille (Octets)\tnom"
 
 find "$chemin" -type f 2>/dev/null | xargs du -b 2>/dev/null | sort -n -r | head -"$prcss"
 
 #PARTIE KILL PROCESS
 
-echo "Voulez-vous kill un processus ? (y/n)"
+echo "\nVoulez-vous tuer un processus ? (y/n)"
 read yn
 
 while ([ "$yn" != "y" ] && [ "$yn" != "n" ])
@@ -132,17 +132,17 @@ then
 	boo=0
 	while [ $boo -eq 0 ]
 	do
-		echo "Entrez le PID du processus :"
+		echo "\nEntrez le PID du processus :"
 		read killer
 		kill $killer
 		if [ $? -ne 0 ]
 		then
-			echo "Le processus n'a pas pu etre supprime (en etes-vous le proprietaire ?)"
+			echo "Le processus n'a pas pu être supprimé (en êtes-vous le propriétaire ?)"
 		else
-			echo "processus detruit"		
+			echo "Processus detruit"		
 		fi
 		
-		echo "kill un autre processus ? (y/n)"
+		echo "Tuer un autre processus ? (y/n)"
 		read yn
 
 		while ([ "$yn" != "y" ] && [ "$yn" != "n" ])
@@ -164,24 +164,24 @@ fi
 
 #SELECTION CRITERE
 
-echo "nombre de processus desire ?"
+echo "\nNombre de processus désiré ?"
 read prcss
 echo $prcss | grep -E "^[0-9]+$" 1>/dev/null
 while [ $? != 0 ]
 do
-	echo "nombre de processus desire ? (il faut entrer un nombre)"
+	echo "\nNombre de processus désiré ? (il faut entrer un nombre)"
 	read prcss
 	
 	echo $prcss | grep -E "^[0-9]+$" 1>/dev/null
 done
 
-echo "Voulez-vous trier les processus par :"
-echo "-Quantite de memoire occupee (m)\n-Temps ecoule depuis son lancement (t)\n-Date de lancement (d)\n-priorite du processus (p)\n (m/t/d/p) :"
+echo "\nVoulez-vous trier les processus par :"
+echo "-Quantité de mémoire occupée (m)\n-Temps écoulé depuis son lancement (t)\n-Date de lancement (d)\n-priorité du processus (p)\n (m/t/d/p) :"
 read crit
 
 while ([ "$crit" != "m" ] && [ "$crit" != "t" ] && [ "$crit" != "d" ] && [ "$crit" != "p" ])
 do
-	echo "(m/t/d/p) :"
+	echo "\n(m/t/d/p) :"
 	read crit
 done
 
@@ -192,19 +192,25 @@ done
 	;;
 
 	"t")
-		echo "Durée d'exécution des $prcss processus :"
-		cat /proc/[0-9]*/stat | cut -d ' ' -f  1,2,15 | sort -t " " -k 3 -n -r | head -"$prcss" | tr " " "\t" > /tmp/PSEProc.$$
-
+		if [ $prcss -lte 1 ]
+		then
+			echo "Durée d'exécution du processus :"
+		else
+			echo "Durée d'exécution des $prcss processus :"
+		fi
+		ls -dl /proc/* 2>/dev/null | tr -s " " | cut -d ' ' -f 6,7,8 | sort -t " " -k 1 | grep -E "^.*/[0-9]+$" | head -$prcss | cut -d '/' -f 3 > /tmp/PSEProc.$$
+		echo "\nPID\t(nom)\t\tdurée"		
 		while read LIGNE
 		do
-			PID=`echo $LIGNE | cut -d ' ' -f 1`
-			DATECREA=`ls -dl /proc/$PID | cut -d ' ' -f 6,7`
-			TPS=`date --utc --rfc-3339=seconds | cut -d '+' -f 1`
-			FIN=`date -u +%s --date="$TPS"`
+			PID=$LIGNE
+			NOM=`cat /proc/$PID/stat | cut -d ' ' -f 2`
+			DATECREA=`ls -dl /proc/$PID | cut -d ' ' -f 6,7` 2>/dev/null
+			TPS=`date --utc --rfc-3339=seconds | cut -d '+' -f 1 | cut -d ':' -f 1,2`
+			FIN=`date -u +%s --date="$TPS"` # Heure actuelle convertie en seconde (à partir du 1/01/1970)
 			DEBUT=`date -u +%s --date="$DATECREA"`
 
 			INTERVALLE=`echo $(($FIN - $DEBUT))`
-			SAVE="$SAVE\n$LIGNE $INTERVALLE"  # Sauvegarde pour le tri
+			SAVE="$LIGNE $NOM $INTERVALLE"  # Sauvegarde pour le tri
 			INTERVALLE=$(($INTERVALLE / 60))    # intervalle exprimé en minutes
 			minutes=$(($INTERVALLE % 60))       # le reste d'une division par 60
 			INTERVALLE=$(( ($INTERVALLE - $minutes)/60 )) # on retire le surplus et on
@@ -213,10 +219,8 @@ done
 			heures=$(($INTERVALLE % 24))        # idem pour les heures                                
 			INTERVALLE=$(( ($INTERVALLE - $heures)/24 ))  # intervalle expr. en jours 
 			SAVE="$SAVE ($INTERVALLE jours, $heures heures et $minutes minutes.)"
+			echo $SAVE
 		done < /tmp/PSEProc.$$
-
-		echo "PID\t(nom)\tticks\tdurée"
-		echo $SAVE | sort -r -k 4
 		;;
 
 	"d")
@@ -235,12 +239,12 @@ done
 
 # RENICE
 
-echo "Voulez-vous modifier la priorite d'un processus ? (y/n)"
+echo "\nVoulez-vous modifier la priorité d'un processus ? (y/n)"
 read yn
 
 while ([ "$yn" != "y" ] && [ "$yn" != "n" ])
 do
-	echo "Voulez-vous modifier la priorite d'un processus ? (y/n)"
+	echo "\nVoulez-vous modifier la priorité d'un processus ? (y/n)"
 	read yn
 done
 
@@ -249,19 +253,19 @@ then
 	boo=0
 	while [ $boo -eq 0 ]
 	do
-		echo "Entrez le PID du processus :"
+		echo "\nEntrez le PID du processus :"
 		read pid
 		while [ $pid -lt 1 ]  #Boucle car renice renvoie 0 lorsque l'on effectue "renice -15 -24" (exemple)
 		do
-			echo "(PID < 1 ; Entrez le PID du processus)"
+			echo "\n(PID < 1 ; Entrez le PID du processus)"
 			read pid
 		done 	
 
-		echo "Entrez la valeur de priorite desiree : (-20 <=> +19)"
+		echo "\nEntrez la valeur de priorité désirée : (-20 <=> +19)"
 		read prio
 		while [ "$prio" -gt 19 ] || [ "$prio" -lt -20 ]
 		do
-			echo "(-20 <=> +19)"
+			echo "\n(-20 <=> +19)"
 			read prio
 		done 		
 	
@@ -269,17 +273,17 @@ then
 
 		if [ $? -ne 0 ]
 		then
-			echo "Le changements de priorite n'a pu etre effetue (en etes-vous le proprietaire ? en avez vous les droits ?)"
+			echo "Le changements de priorité n'a pas pu être effectué (en êtes-vous le propriétaire ? en avez-vous les droits ?)"
 		else
-			echo "modification de la priorite effectue"		
+			echo "Modification de la priorité effectuée"		
 		fi
 		
-		echo "Voulez-vous modifier la priorite d'un autre processus ? (y/n)"
+		echo "\nVoulez-vous modifier la priorité d'un autre processus ? (y/n)"
 		read yn
 
 		while ([ "$yn" != "y" ] && [ "$yn" != "n" ])
 		do
-			echo "Voulez-vous modifier la priorite d'un autre processus ? (y/n)"
+			echo "\nVoulez-vous modifier la priorité d'un autre processus ? (y/n)"
 			read yn
 		done
 		
@@ -292,8 +296,59 @@ then
 	done
 fi
 
+#Partie kill processus selon le signal
 
+echo "\nVoulez-vous tuer un processus ? (y/n)"
+read yn
 
+while ([ "$yn" != "y" ] && [ "$yn" != "n" ])
+do
+	echo "\n(y/n)"
+	read yn
+done
+
+if [ "$yn" = "y" ]
+then
+	boo=0
+	while [ $boo -eq 0 ]
+	do
+		echo "\nEntrez le PID du processus :"
+		read killer
+		kill -1 $killer #Tentative avec signal HUP
+		if [ $? -ne 0 ] 2>/dev/null # Si la tentative échoue
+		then
+			kill -2 $killer #Tentative avec signal INT
+			if [ $? -ne 0 ] 2>/dev/null # Si la tentative échoue
+			then
+				kill -9 $killer 2>/dev/null # Tentative ultime qui ne devrait pas pouvoir échouer
+				if [ $? -ne 0 ]
+				then
+					echo "La suppression a échouée, en êtes-vous le propriétaire ou avez-vous les droits nécessaires ?"
+				fi
+			else
+				echo "Processus détruit"
+			fi
+		else
+			echo "Processus détruit"		
+		fi
+		
+		echo "\nTuer un autre processus ? (y/n)"
+		read yn
+
+		while ([ "$yn" != "y" ] && [ "$yn" != "n" ])
+		do
+			echo "\n(y/n)"
+			read yn
+		done
+		
+		if [ "$yn" = "y" ]
+		then
+			boo=0
+		else
+			boo=1
+		fi
+	done
+fi
 
 rm /tmp/PSEProc.$$
 exit 0
