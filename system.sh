@@ -192,7 +192,32 @@ done
 	;;
 
 	"t")
-	;;
+		echo "Date de création des $prcss processus :"
+		cat /proc/[0-9]*/stat | cut -d ' ' -f  1,2,15 | sort -t " " -k 3 -n -r | head -"$prcss" | tr " " "\t" > /tmp/PSEProc.$$
+
+		while read LIGNE
+		do
+			PID=`echo $LIGNE | cut -d ' ' -f 1`
+			DATECREA=`ls -dl /proc/$PID | cut -d ' ' -f 6,7`
+			TPS=`date --utc --rfc-3339=seconds | cut -d '+' -f 1`
+			FIN=`date -u +%s --date="$TPS"`
+			DEBUT=`date -u +%s --date="$DATECREA"`
+
+			INTERVALLE=`echo $(($FIN - $DEBUT))`
+			SAVE="$SAVE\n$LIGNE $INTERVALLE"  # Sauvegarde pour le tri
+			INTERVALLE=$(($INTERVALLE / 60))    # intervalle exprimé en minutes
+			minutes=$(($INTERVALLE % 60))       # le reste d'une division par 60
+			INTERVALLE=$(( ($INTERVALLE - $minutes)/60 )) # on retire le surplus et on
+						                      # divise par 60 pour avoir
+						                      # l'intervalle en heures 
+			heures=$(($INTERVALLE % 24))        # idem pour les heures                                
+			INTERVALLE=$(( ($INTERVALLE - $heures)/24 ))  # intervalle expr. en jours 
+			echo "Processus (PID/NOM) : `echo $LIGNE | cut -d ' ' -f 1,2`"
+			SAVE="$SAVE ($INTERVALLE jours, $heures heures et $minutes minutes.)"
+		done < /tmp/PSEProc.$$
+
+		echo $SAVE | sort -r -k 4
+		;;
 
 	"d")
 		cat /proc/[0-9]*/stat | cut -d ' ' -f  1,2,15 | sort -t " " -k 3 -n -r | head -"$prcss" | tr " " "\t" > /tmp/PSEProc.$$
@@ -206,44 +231,7 @@ done
 	;;
 	esac
 
-echo "Combien de processus voulez-vous lister (date creation) ?"
-read prcss
-echo $prcss | grep -E "^[0-9]+$" 1>/dev/null
 
-while [ $? -ne 0 ]
-do
-	echo "nombre de processus desire (date creation) ? (il faut entrer un nombre)"
-	read prcss
-	
-	echo $prcss | grep -E "^[0-9]+$" 1>/dev/null
-done
-
-echo "Date de création des $prcss processus :"
-cat /proc/[0-9]*/stat | cut -d ' ' -f  1,2,15 | sort -t " " -k 3 -n -r | head -"$prcss" | tr " " "\t" > /tmp/PSEProc.$$
-
-while read LIGNE
-do
-	PID=`echo $LIGNE | cut -d ' ' -f 1`
-	DATECREA=`ls -dl /proc/$PID | cut -d ' ' -f 6,7`
-	TPS=`date --utc --rfc-3339=seconds | cut -d '+' -f 1`
-	FIN=`date -u +%s --date="$TPS"`
-	DEBUT=`date -u +%s --date="$DATECREA"`
-
-	INTERVALLE=`echo $(($FIN - $DEBUT))`
-	SAVE="$SAVE\n$LIGNE $INTERVALLE"  # Sauvegarde pour le tri
-	INTERVALLE=$(($INTERVALLE / 60))    # intervalle exprimé en minutes
-	minutes=$(($INTERVALLE % 60))       # le reste d'une division par 60
-	INTERVALLE=$(( ($INTERVALLE - $minutes)/60 )) # on retire le surplus et on
-		                                      # divise par 60 pour avoir
-		                                      # l'intervalle en heures 
-	heures=$(($INTERVALLE % 24))        # idem pour les heures                                
-	INTERVALLE=$(( ($INTERVALLE - $heures)/24 ))  # intervalle expr. en jours 
-	echo "Processus (PID/NOM) : `echo $LIGNE | cut -d ' ' -f 1,2`"
-	SAVE="$SAVE ($INTERVALLE jours, $heures heures et $minutes minutes.)"
-done < /tmp/PSEProc.$$
-rm /tmp/PSEProc.$$
-
-echo $SAVE | sort -r -k 4
 
 # RENICE
 
@@ -303,3 +291,6 @@ then
 		fi
 	done
 fi
+
+rm /tmp/PSEProc.$$
+exit 0
