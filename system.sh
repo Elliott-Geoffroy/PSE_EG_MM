@@ -48,8 +48,15 @@ do
 	echo $prcss | grep -E "^[0-9]+$" 1>/dev/null
 done
 
-echo "les $prcss processus ayant consomme le plus de temps CPU depuis leur lancement :"
-echo "PID\tnom\t\ttics"
+
+if [ $prcss -eq 1 ]
+then
+	echo "le $prcss processus ayant consomme le plus de temps CPU depuis sont lancement :"
+	echo "PID\tnom\t\ttics"
+else
+	echo "les $prcss processus ayant consomme le plus de temps CPU depuis leurs lancement :"
+	echo "PID\tnom\t\ttics"
+fi
 cat /proc/[0-9]*/stat | cut -d ' ' -f  1,2,15 | sort -t " " -k 3 -n -r | head -"$prcss" | tr " " "\t"
 
 
@@ -70,7 +77,7 @@ read yn
 
 while ([ "$yn" != "y" ] && [ "$yn" != "n" ])
 do
-	echo "Voulez vous changer de repertoire courant ? (y/n)"
+	echo "(y/n)"
 	read yn
 done
 
@@ -88,10 +95,6 @@ then
 			fi
 		if [ -d $chemin ]
 		then
-			echo "Recherche dans repertoire : \"$chemin\""
-			echo "les $prcss fichiers (incluant les répertoires) occupant le plus d’espace disque"
-			echo "taille (Octets)\tnom"
-			find "$chemin" -type f 2>/dev/null | xargs du -b 2>/dev/null | sort -n -r | head -"$prcss"
 			boo=1
 		else
 			echo "repertoire \"$chemin\" inexistant" >&2	
@@ -99,10 +102,19 @@ then
 	done
 elif [ "$yn" = "n" ]
 then
-	echo "les $prcss fichiers (incluant les répertoires) occupant le plus d’espace disque"
-	echo "taille (Octets)\tnom"
-	find . -type f 2>/dev/null | xargs du -b 2>/dev/null | sort -n -r | head -"$prcss"
+	chemin="./"
 fi
+
+	echo "Recherche dans repertoire : \"$chemin\""
+if [ $prcss -eq 1 ]
+then
+	echo "le $prcss fichier (incluant les répertoires) occupant le plus d’espace disque"
+else
+	echo "les $prcss fichiers (incluant les répertoires) occupant le plus d’espace disque"
+fi
+	echo "taille (Octets)\tnom"
+
+find "$chemin" -type f 2>/dev/null | xargs du -b 2>/dev/null | sort -n -r | head -"$prcss"
 
 #PARTIE KILL PROCESS
 
@@ -111,7 +123,7 @@ read yn
 
 while ([ "$yn" != "y" ] && [ "$yn" != "n" ])
 do
-	echo "Voulez-vous kill un processus ? (y/n)"
+	echo "(y/n)"
 	read yn
 done
 
@@ -135,7 +147,7 @@ then
 
 		while ([ "$yn" != "y" ] && [ "$yn" != "n" ])
 		do
-			echo "Voulez-vous kill un processus ? (y/n)"
+			echo "(y/n)"
 			read yn
 		done
 		
@@ -150,11 +162,49 @@ fi
 
 #A MAXIMA
 
-#nice : priorité 19
+#SELECTION CRITERE
 
-# ls -dl /proc/18054  Starttime
+echo "nombre de processus desire ?"
+read prcss
+echo $prcss | grep -E "^[0-9]+$" 1>/dev/null
+while [ $? != 0 ]
+do
+	echo "nombre de processus desire ? (il faut entrer un nombre)"
+	read prcss
+	
+	echo $prcss | grep -E "^[0-9]+$" 1>/dev/null
+done
 
-# cat /proc/[pid]/status -> VmRSS (Kb)
+echo "Voulez-vous trier les processus par :"
+echo "-Quantite de memoire occupee (m)\n-Temps ecoule depuis son lancement (t)\n-Date de lancement (d)\n-priorite du processus (p)\n (m/t/d/p) :"
+read crit
+
+while ([ "$crit" != "m" ] && [ "$crit" != "t" ] && [ "$crit" != "d" ] && [ "$crit" != "p" ])
+do
+	echo "(m/t/d/p) :"
+	read crit
+done
+
+	case $crit in
+
+	"m")
+		# cat /proc/[pid]/status -> VmRSS (Kb)
+	;;
+
+	"t")
+	;;
+
+	"d")
+		cat /proc/[0-9]*/stat | cut -d ' ' -f  1,2,15 | sort -t " " -k 3 -n -r | head -"$prcss" | tr " " "\t" > /tmp/PSEProc.$$
+
+		cat /tmp/PSEProc.$$ | tr "\t" " " | cut -d " " -f 1
+		# ls -dl /proc/18054  Starttime
+	;;
+	
+	"p")
+		#nice : priorité 19
+	;;
+	esac
 
 echo "Combien de processus voulez-vous lister (date creation) ?"
 read prcss
@@ -194,4 +244,62 @@ done < /tmp/PSEProc.$$
 rm /tmp/PSEProc.$$
 
 echo $SAVE | sort -r -k 4
-exit 0
+
+# RENICE
+
+echo "Voulez-vous modifier la priorite d'un processus ? (y/n)"
+read yn
+
+while ([ "$yn" != "y" ] && [ "$yn" != "n" ])
+do
+	echo "Voulez-vous modifier la priorite d'un processus ? (y/n)"
+	read yn
+done
+
+if [ "$yn" = "y" ]
+then
+	boo=0
+	while [ $boo -eq 0 ]
+	do
+		echo "Entrez le PID du processus :"
+		read pid
+		while [ $pid -lt 1 ]  #Boucle car renice renvoie 0 lorsque l'on effectue "renice -15 -24" (exemple)
+		do
+			echo "(PID < 1 ; Entrez le PID du processus)"
+			read pid
+		done 	
+
+		echo "Entrez la valeur de priorite desiree : (-20 <=> +19)"
+		read prio
+		while [ "$prio" -gt 19 ] || [ "$prio" -lt -20 ]
+		do
+			echo "(-20 <=> +19)"
+			read prio
+		done 		
+	
+		renice $prio $pid
+
+		if [ $? -ne 0 ]
+		then
+			echo "Le changements de priorite n'a pu etre effetue (en etes-vous le proprietaire ? en avez vous les droits ?)"
+		else
+			echo "modification de la priorite effectue"		
+		fi
+		
+		echo "Voulez-vous modifier la priorite d'un autre processus ? (y/n)"
+		read yn
+
+		while ([ "$yn" != "y" ] && [ "$yn" != "n" ])
+		do
+			echo "Voulez-vous modifier la priorite d'un autre processus ? (y/n)"
+			read yn
+		done
+		
+		if [ "$yn" = "y" ]
+		then
+			boo=0
+		else
+			boo=1
+		fi
+	done
+fi
