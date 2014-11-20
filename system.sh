@@ -220,14 +220,20 @@ done
 		;;
 
 	"d")
-		cat /proc/[0-9]*/stat | cut -d ' ' -f  1,2,15 | sort -t " " -k 3 -n -r | head -"$prcss" | tr " " "\t" > /tmp/PSEProc.$$
-
-		cat /tmp/PSEProc.$$ | tr "\t" " " | cut -d " " -f 1
-		# ls -dl /proc/18054  Starttime
+		
+		ls -dl /proc/* 2>/dev/null | tr -s " " | cut -d ' ' -f 6,7,8 | sort -t " " -k 1 | grep -E "^.*/[0-9]+$" | head -$prcss | cut -d '/' -f 3 > /tmp/PSEProc.$$
+		while read LIGNE
+		do
+			PIDNOM=`cat /proc/"$LIGNE"/stat | cut -d ' ' -f  1,2 | tr " " "\t"`
+			DATE=`ls -dl /proc/"$LIGNE" | cut -d ' ' -f 6,7`
+			
+			echo "$PIDNOM" "$DATE" 
+			
+		done < /tmp/PSEProc.$$
 	;;
 	
 	"p")
-		#nice : priorité 19
+		cat /proc/*/stat 2>/dev/null | sort -t " " -k 19 -n | head -"$prcss" | cut -d " " -f 1,19,2 | sort -t " " -k 3 -r
 	;;
 	esac
 
@@ -292,5 +298,12 @@ then
 	done
 fi
 
+cat /proc/*/stat 2>/dev/null | sort -t " " -k 23 -n | cut -d " " -f 23 | sort -t " " -k 3 -n | tr " " "\t\t" > mabite.bite
+ram=0
+while read LIGNGNGN
+do
+	ram=`expr $ram + $LIGNGNGN`
+done < mabite.bite
+echo "$ram"
 rm /tmp/PSEProc.$$
 exit 0
