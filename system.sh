@@ -48,8 +48,15 @@ do
 	echo $prcss | grep -E "^[0-9]+$" 1>/dev/null
 done
 
-echo "les $prcss processus ayant consomme le plus de temps CPU depuis leur lancement :"
-echo "PID\tnom\t\ttics"
+
+if [ $prcss -eq 1 ]
+then
+	echo "le $prcss processus ayant consomme le plus de temps CPU depuis sont lancement :"
+	echo "PID\tnom\t\ttics"
+else
+	echo "les $prcss processus ayant consomme le plus de temps CPU depuis leurs lancement :"
+	echo "PID\tnom\t\ttics"
+fi
 cat /proc/[0-9]*/stat | cut -d ' ' -f  1,2,15 | sort -t " " -k 3 -n -r | head -"$prcss" | tr " " "\t"
 
 
@@ -88,10 +95,6 @@ then
 			fi
 		if [ -d $chemin ]
 		then
-			echo "Recherche dans repertoire : \"$chemin\""
-			echo "les $prcss fichiers (incluant les répertoires) occupant le plus d’espace disque"
-			echo "taille (Octets)\tnom"
-			find "$chemin" -type f 2>/dev/null | xargs du -b 2>/dev/null | sort -n -r | head -"$prcss"
 			boo=1
 		else
 			echo "repertoire \"$chemin\" inexistant" >&2	
@@ -99,10 +102,19 @@ then
 	done
 elif [ "$yn" = "n" ]
 then
-	echo "les $prcss fichiers (incluant les répertoires) occupant le plus d’espace disque"
-	echo "taille (Octets)\tnom"
-	find . -type f 2>/dev/null | xargs du -b 2>/dev/null | sort -n -r | head -"$prcss"
+	chemin="./"
 fi
+
+	echo "Recherche dans repertoire : \"$chemin\""
+if [ $prcss -eq 1 ]
+then
+	echo "le $prcss fichier (incluant les répertoires) occupant le plus d’espace disque"
+else
+	echo "les $prcss fichiers (incluant les répertoires) occupant le plus d’espace disque"
+fi
+	echo "taille (Octets)\tnom"
+
+find "$chemin" -type f 2>/dev/null | xargs du -b 2>/dev/null | sort -n -r | head -"$prcss"
 
 #PARTIE KILL PROCESS
 
