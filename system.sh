@@ -192,7 +192,7 @@ done
 	;;
 
 	"t")
-		echo "Date de création des $prcss processus :"
+		echo "Durée d'exécution des $prcss processus :"
 		cat /proc/[0-9]*/stat | cut -d ' ' -f  1,2,15 | sort -t " " -k 3 -n -r | head -"$prcss" | tr " " "\t" > /tmp/PSEProc.$$
 
 		while read LIGNE
