@@ -67,7 +67,14 @@ done
 
 echo "Voulez vous changer de repertoire courant ? (y/n)"
 read yn
-if echo $yn | grep "y" 1>/dev/null
+
+while ([ "$yn" != "y" ] && [ "$yn" != "n" ])
+do
+	echo "Voulez vous changer de repertoire courant ? (y/n)"
+	read yn
+done
+
+if [ "$yn" = "y" ]
 then
 	boo=0
 	while [ $boo -eq 0 ]
@@ -81,25 +88,34 @@ then
 			fi
 		if [ -d $chemin ]
 		then
+			echo "Recherche dans repertoire : \"$chemin\""
+			echo "les $prcss fichiers (incluant les répertoires) occupant le plus d’espace disque"
+			echo "taille (Octets)\tnom"
 			find "$chemin" -type f 2>/dev/null | xargs du -b 2>/dev/null | sort -n -r | head -"$prcss"
 			boo=1
 		else
 			echo "repertoire \"$chemin\" inexistant" >&2	
 		fi 
 	done
-else
-echo "les $prcss fichiers (incluant les répertoires) occupant le plus d’espace disque"
-echo "taille (Octets)\tnom"
-find . -type f 2>/dev/null | xargs du -b 2>/dev/null | sort -n -r | head -"$prcss"
-
+elif [ "$yn" = "n" ]
+then
+	echo "les $prcss fichiers (incluant les répertoires) occupant le plus d’espace disque"
+	echo "taille (Octets)\tnom"
+	find . -type f 2>/dev/null | xargs du -b 2>/dev/null | sort -n -r | head -"$prcss"
 fi
 
 #PARTIE KILL PROCESS
 
 echo "Voulez-vous kill un processus ? (y/n)"
-
 read yn
-if echo $yn | grep "y" 1>/dev/null
+
+while ([ "$yn" != "y" ] && [ "$yn" != "n" ])
+do
+	echo "Voulez-vous kill un processus ? (y/n)"
+	read yn
+done
+
+if [ "$yn" = "y" ]
 then
 	boo=0
 	while [ $boo -eq 0 ]
@@ -116,7 +132,14 @@ then
 		
 		echo "kill un autre processus ? (y/n)"
 		read yn
-		if echo $yn | grep "y" 1>/dev/null
+
+		while ([ "$yn" != "y" ] && [ "$yn" != "n" ])
+		do
+			echo "Voulez-vous kill un processus ? (y/n)"
+			read yn
+		done
+		
+		if [ "$yn" = "y" ]
 		then
 			boo=0
 		else
