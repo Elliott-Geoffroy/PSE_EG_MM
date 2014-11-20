@@ -150,6 +150,9 @@ fi
 
 #bite
 
+#cimabite
+
+
 #A MAXIMA
 
 #nice : priorité 19
