@@ -1,0 +1,12 @@
+Mathieu Maillard
+Elliott Geoffroy
+
+						Rapport de projet
+
+Toutes les fonctionnalités demandées ont été implantées à l'exception d'une d'entre-elles (triage des processus selon l'utilisation mémoire)
+Elles s'exécutent dans l'ordre donné par le sujet du projet.
+Au départ (pour la partie "A MINIMA") tout s'affiche sans interaction avec l'utilisateur.
+C'est à partir de la partie "A MEDIA" que l'utilisateur influencera le déroulement du script.
+A chaque demande d'information de l'utilisateur, des tests sont effectués afin d'empêcher toute information incorrecte, éviter tout crash ou incohérence dans les résultats.
+Dans le cas du choix du critère de triage des processus, l'utilisateur peut demander de faire un second tri selon un autre critère. Idem lorsque l'utilisateur veut supprimer un processus via les signaux HUP/INT/KILL.
+
