@@ -4,8 +4,17 @@
 
 clear
 
+#***********************#
+#			#
+#	A MINIMA	#
+#                       #
+#***********************#
+
 banner "A MINIMA"
 
+#***********************#
+#  Info Sys. classique  #
+#***********************#
 echo "Système d'exploitation : `cat /proc/sys/kernel/ostype`"
 echo "Version du noyau : `cat /proc/sys/kernel/osrelease`"
 
@@ -30,24 +39,39 @@ else
 	echo "Il y a actuellement $NBUSERS utilisateurs connectés"
 fi
 
+#***********************#
+# 5 procs. CPU Conso    #
+#***********************#
+
 echo "\nLes 5 processus ayant consomme le plus de temps CPU depuis leur lancement :"
 echo "PID\tnom\t\ttics"
 cat /proc/[0-9]*/stat | cut -d ' ' -f  1,2,15 | sort -t " " -k 3 -n -r | head -5 | tr " " "\t"
+
+#***********************#
+# 5 File Size from ./   #
+#***********************#
 
 echo "\nLes 5 fichiers (incluant les répertoires) occupant le plus d’espace disque"
 echo "taille\tnom"
 echo "(Octets)"
 find . -type f 2>/dev/null | xargs du -b 2>/dev/null | sort -n -r | head -5 
 
-#A MEDIA
-echo ""
+#***********************#
+#			#
+#  	 A MEDIA	#
+#                       #
+#***********************#
+
+echo "\n"
 banner "A MEDIA"
 
-#PARTIE PROCESSUS
+#***********************#
+#  n procs. CPU Conso   #
+#***********************#
 echo "\nNombre de processus désiré ?"
 read prcss
 echo $prcss | grep -E "^[0-9]+$" 1>/dev/null
-while [ $? != 0 ]
+while [ $? != 0 ] # Verification que l'utilisateur rentre bien un nombre
 do
 	echo "\nNombre de processus désiré ? (il faut entrer un nombre)"
 	read prcss
@@ -56,7 +80,7 @@ do
 done
 
 
-if [ $prcss -eq 1 ]
+if [ $prcss -eq 1 ] #test pour afficher au singulier ou pluriel
 then
 	echo "Le $prcss processus ayant consommé le plus de temps CPU depuis son lancement :"
 	echo "PID\tnom\t\tticks"
@@ -64,14 +88,16 @@ else
 	echo "Les $prcss processus ayant consommés le plus de temps CPU depuis leur lancement :"
 	echo "PID\tnom\t\tticks"
 fi
-cat /proc/[0-9]*/stat | cut -d ' ' -f  1,2,15 | sort -t " " -k 3 -n -r | head -"$prcss" | tr " " "\t"
+cat /proc/[0-9]*/stat | cut -d ' ' -f  1,2,15 | sort -t " " -k 3 -n -r | head -"$prcss" | tr " " "\t" #affichage du resultat
 
 
-#PARTIE DISK UTIL.
+#*******************************#
+# n File Size from ./ or else   #
+#*******************************#
 echo "\nNombre de fichier désiré ?"
 read prcss
 echo $prcss | grep -E "^[0-9]+$" 1>/dev/null
-while [ $? -ne 0 ]
+while [ $? -ne 0 ] # Verification que l'utilisateur rentre bien un nombre
 do
 	echo "\nNombre de fichier désiré ? (il faut entrer un nombre)"
 	read prcss
@@ -79,41 +105,43 @@ do
 	echo $prcss | grep -E "^[0-9]+$" 1>/dev/null
 done
 
+
+# choix du repetroire
 echo "\nVoulez-vous changer de répertoire courant ? (y/n)"
 read yn
 
-while ([ "$yn" != "y" ] && [ "$yn" != "n" ])
+while ([ "$yn" != "y" ] && [ "$yn" != "n" ]) # Verification que l'utilisateur rentre bien y ou n
 do
 	echo "\n(y/n)"
 	read yn
 done
 
-if [ "$yn" = "y" ]
+if [ "$yn" = "y" ] #veut changer de repertoire
 then
 	boo=0
 	while [ $boo -eq 0 ]
 	do
 		echo "\nEntrez le répertoire souhaité (chemin relatif):"
 		read chemin
-			if echo $chemin | grep -E "^[.]{1,2}[/].*$" 1>/dev/null
+			if echo $chemin | grep -E "^[.]{1,2}[/].*$" 1>/dev/null # test si l'utilisateur a bien mis ./ ou ../ (car chemin relatif)
 			then : 
 			else
-				chemin="./""$chemin" 
+				chemin="./""$chemin" # sinon rajoute ./ par defaut 
 			fi
-		if [ -d $chemin ]
+		if [ -d $chemin ] 
 		then
 			boo=1
 		else
 			echo "Répertoire \"$chemin\" inexistant" >&2	
 		fi 
 	done
-elif [ "$yn" = "n" ]
+elif [ "$yn" = "n" ] #reste sur ./
 then
 	chemin="./"
 fi
 
 	echo "Recherche dans répertoire : \"$chemin\""
-if [ $prcss -eq 1 ]
+if [ $prcss -eq 1 ] # Verification pour affichage pluriel singulier
 then
 	echo "\nLe $prcss fichier (incluant les répertoires) occupant le plus d’espace disque"
 else
@@ -124,12 +152,13 @@ fi
 
 find "$chemin" -type f 2>/dev/null | xargs du -b 2>/dev/null | sort -n -r | head -"$prcss" 
 
-#PARTIE KILL PROCESS
-
+#***********************#
+#   tuer un procs       #
+#***********************#
 echo "\nVoulez-vous tuer un processus ? (y/n)"
 read yn
 
-while ([ "$yn" != "y" ] && [ "$yn" != "n" ])
+while ([ "$yn" != "y" ] && [ "$yn" != "n" ]) # Verification que l'utilisateur rentre bien y ou n
 do
 	echo "(y/n)"
 	read yn
@@ -153,7 +182,7 @@ then
 		echo "Tuer un autre processus ? (y/n)"
 		read yn
 
-		while ([ "$yn" != "y" ] && [ "$yn" != "n" ])
+		while ([ "$yn" != "y" ] && [ "$yn" != "n" ]) # Verification que l'utilisateur rentre bien y ou n
 		do
 			echo "(y/n)"
 			read yn
@@ -168,18 +197,24 @@ then
 	done
 fi
 
-#A MAXIMA
+#***********************#
+#			#
+#     A MAXIMA          #
+#                       #
+#***********************#
 
 banner "A MAXIMA"
 
-#SELECTION CRITERE
+#***********************#
+#    Choix tri procs    #
+#***********************#
 yn="y"
-while [ "$yn" = "y" ]
+while [ "$yn" = "y" ] # Loop pour plusieurs tri d'affilé si souhaité
 do
 	echo "\nNombre de processus désiré ?"
 	read prcss
 	echo $prcss | grep -E "^[0-9]+$" 1>/dev/null
-	while [ $? != 0 ]
+	while [ $? != 0 ] # verif si bien un nomre
 	do
 		echo "\nNombre de processus désiré ? (il faut entrer un nombre)"
 		read prcss
@@ -238,7 +273,7 @@ do
 				INTERVALLE=$(( ($INTERVALLE - $minutes)/60 )) # on retire le surplus et on
 									      # divise par 60 pour avoir
 									      # l'intervalle en heures 
-				heures=$(($INTERVALLE % 24))        # idem pour les heures                                
+				heures=$(($INTERVALLE % 24))        # idem pour les heures
 				INTERVALLE=$(( ($INTERVALLE - $heures)/24 ))  # intervalle expr. en jours 
 				SAVE="$SAVE ($INTERVALLE jours, $heures heures et $minutes minutes.)"
 				echo $SAVE 
@@ -264,10 +299,10 @@ do
 			cat /proc/*/stat 2>/dev/null | sort -t " " -k 19 -n | head -"$prcss" | cut -d " " -f 1,19,2 | sort -t " " -k 3 -r | tr " " "\t"
 		;;
 		esac
-	echo "\nVoulez-vous retrier les processus ? (y/n)"
+	echo "\nVoulez-vous retrier les processus ? (y/n)" #Recommencer 
 	read yn
 
-	while ([ "$yn" != "y" ] && [ "$yn" != "n" ])
+	while ([ "$yn" != "y" ] && [ "$yn" != "n" ]) #verif y / n
 	do
 		echo "\nVoulez-vous retrier les processus ? (y/n)"
 		read yn
@@ -275,12 +310,13 @@ do
 done
 
 
-# RENICE
-
+#***********************#
+#       renice un procs #
+#***********************#
 echo "\nVoulez-vous modifier la priorité d'un processus ? (y/n)"
 read yn
 
-while ([ "$yn" != "y" ] && [ "$yn" != "n" ])
+while ([ "$yn" != "y" ] && [ "$yn" != "n" ]) # yn
 do
 	echo "\nVoulez-vous modifier la priorité d'un processus ? (y/n)"
 	read yn
@@ -307,11 +343,12 @@ then
 			read prio
 		done 		
 	
-		renice $prio $pid
+		renice $prio $pid 1>/dev/null 2>/dev/null
+
 
 		if [ $? -ne 0 ]
 		then
-			echo "Le changements de priorité n'a pas pu être effectué (en êtes-vous le propriétaire ? en avez-vous les droits ?)"
+			echo "Le changement de priorité n'a pas pu être effectué (en êtes-vous le propriétaire ? en avez-vous les droits ?)"
 		else
 			echo "Modification de la priorité effectuée"		
 		fi
@@ -319,7 +356,7 @@ then
 		echo "\nVoulez-vous modifier la priorité d'un autre processus ? (y/n)"
 		read yn
 
-		while ([ "$yn" != "y" ] && [ "$yn" != "n" ])
+		while ([ "$yn" != "y" ] && [ "$yn" != "n" ]) #
 		do
 			echo "\nVoulez-vous modifier la priorité d'un autre processus ? (y/n)"
 			read yn
@@ -334,12 +371,13 @@ then
 	done
 fi
 
-#Partie kill processus selon le signal
-
+#***********************#
+#    Kill procs avec SIG#
+#***********************#
 echo "\nVoulez-vous tuer un processus via les signaux HUP -> INT -> KILL ? (y/n)"
 read yn
 
-while ([ "$yn" != "y" ] && [ "$yn" != "n" ])
+while ([ "$yn" != "y" ] && [ "$yn" != "n" ]) #
 do
 	echo "\n(y/n)"
 	read yn
@@ -353,21 +391,39 @@ then
 		echo "\nEntrez le PID du processus :"
 		read killer
 
-		kill -1 $killer #Tentative avec signal HUP
+		find "/proc/$killer" 1>/dev/null 2>/dev/null
 
-		find "/proc/$killer" 1&2>/dev/null
+		while [ $? != 0 ] #
+		do
+			echo "PID inexistant "
+			echo "\nEntrez un PID de processus EXISTANT:"
+			read killer
+			find "/proc/$killer" 1>/dev/null 2>/dev/null
+
+		done
+
+
+		kill -1 $killer 1>/dev/null 2>/dev/null
+ #Tentative avec signal HUP
+
+		find "/proc/$killer" 1>/dev/null 2>/dev/null
+
 		
 		if [ $? -eq 0 ] 2>/dev/null # Si la tentative échoue
 		then
-			kill -2 $killer #Tentative avec signal INT	
+			kill -2 $killer 1>/dev/null 2>/dev/null
+ #Tentative avec signal INT	
 
-			find "/proc/$killer" 1&2>/dev/null		
+			find "/proc/$killer" 1>/dev/null 2>/dev/null
+		
 			
-			if [ $? -eq 0 ] 2>/dev/null # Si la tentative échoue
+			if [ $? -eq 0 ] 1>/dev/null 2>/dev/null
+ # Si la tentative échoue
 			then
-				kill -9 $killer 2>/dev/null # Tentative ultime qui ne devrait pas pouvoir échouer
+				kill -9 $killer 1>/dev/null 2>/dev/null
+ # Tentative ultime qui ne devrait pas pouvoir échouer
 
-				find "/proc/$killer" 1&2>/dev/null			
+				find "/proc/$killer" 1>/dev/null 2>/dev/null
 
 				if [ $? -eq 0 ]
 				then
@@ -398,6 +454,6 @@ then
 	done
 fi
 
-rm "/tmp/PSEProc.$$" 2>/dev/null
+rm "/tmp/PSEProc.$$" 2>/dev/null  # suppression ficher temp
 
-exit 0
+exit 0 # exit
