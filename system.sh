@@ -21,7 +21,7 @@ echo "Mémoire Libre / Mémoire totale : $ramFree Kb / $ramTot Kb"
 NBUSERS=`who | wc -l`
 if [ $NBUSERS -eq 1 ]
 then
-	echo "Il y a actuellement $NBUSERS utilisateur connecté (vous)"
+	echo "Il y a actuellement $NBUSERS utilisateur connecté"
 else
 	echo "Il y a actuellement $NBUSERS utilisateurs connectés"
 fi
@@ -363,5 +363,8 @@ do
 	ram=`expr $ram + $LIGNGNGN`
 done < mabite.bite
 echo "$ram"
-rm /tmp/PSEProc.$$
+if [ -e PSEProc.$$ ]
+then
+	rm /tmp/PSEProc.$$
+fi
 exit 0
