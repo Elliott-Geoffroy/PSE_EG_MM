@@ -1,5 +1,15 @@
 #!/bin/sh
 
+#All Rights to:
+#
+#Elliott Geoffroy
+#Mathieu Maillard
+#
+#Please don't use this without our permission
+#or you'll be damned to hell ! 
+#
+
+
 #A MINIMA
 
 clear
@@ -171,8 +181,24 @@ then
 	do
 		echo "\nEntrez le PID du processus :"
 		read killer
+
+		find "/proc/$killer" 1>/dev/null 2>/dev/null
+
+		while [ $? != 0 ] #
+		do
+			echo "PID inexistant "
+			echo "\nEntrez un PID de processus EXISTANT:"
+			read killer
+			find "/proc/$killer" 1>/dev/null 2>/dev/null
+
+		done
+
 		kill $killer
-		if [ $? -ne 0 ]
+		
+		find "/proc/$killer" 1>/dev/null 2>/dev/null
+
+		
+		if [ $? -eq 0 ] 2>/dev/null # Si la tentative échoue
 		then
 			echo "Le processus n'a pas pu être supprimé (en êtes-vous le propriétaire ?)"
 		else
@@ -223,7 +249,7 @@ do
 	done
 
 		echo "\nVoulez-vous trier les processus par :"
-		echo "-Quantité de mémoire occupée (m)\n-Temps écoulé depuis son lancement (t)\n-Date de lancement (d)\n-priorité du processus (p)\n (t/d/p) (m coming soon):"
+		echo "-Quantité de mémoire occupée (m)\n-Temps écoulé depuis son lancement (t)\n-Date de lancement (d)\n-priorité du processus (p)\n (t/d/p) (m coming soon, but try it ! yeah really ! try it !):"
 		read crit
 
 		while ([ "$crit" != "m" ] && [ "$crit" != "t" ] && [ "$crit" != "d" ] && [ "$crit" != "p" ])
@@ -234,19 +260,26 @@ do
 	
 		case $crit in
 
-		# "m")
+		 "m")
 		#	Impossible de trouver les bonnes valeurs... sry
-		#
-		#
-		#	#cat /proc/*/status | grep VmRSS | tr -s  " " | cut -d " " -f 2
-		#
-		#	#cat /proc/*/status | grep VmSize | tr -s  " " | cut -d " " -f 2
-		#
-		#	# cat /proc/*/statm
-		#	
-		#	
-		#	#cat /proc/*/status | grep VmData | tr -s  " " | cut -d " " -f 2 
-		#;;
+		
+		
+			#cat /proc/*/status | grep VmRSS | tr -s  " " | cut -d " " -f 2
+		
+			#cat /proc/*/status | grep VmSize | tr -s  " " | cut -d " " -f 2
+		
+			# cat /proc/*/statm
+			
+			
+			#cat /proc/*/status | grep VmData | tr -s  " " | cut -d " " -f 2 
+
+			echo "\033[1;36m\nsry"
+			echo "\033[1;32mthat's not available today"	
+			echo "\033[1;35mtry again, but, try it tomorrow"
+			echo "\033[1;31mmaybe it will work"
+			echo "\033[1;33mif not, well, wait a bit more!"
+			echo "\n\033[1;37mhave a nice day =)\033[m\n"
+		;;
 
 		"t")
 			if [ $prcss -eq 1 ]
@@ -457,3 +490,5 @@ fi
 rm "/tmp/PSEProc.$$" 2>/dev/null  # suppression ficher temp
 
 exit 0 # exit
+
+# The script will explode in 10 seconds: ...1 ...2 ...3 ...4 ...5 ...6 ...7 ...8 ...9 ...Boom!
