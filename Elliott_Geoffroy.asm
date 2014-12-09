@@ -1,6 +1,5 @@
 .data
 grille: .byte 81
-str2: .asciiz "-------"
 
 .text
 
@@ -119,9 +118,7 @@ printArrayGrid:
 		jal modulo 
 		bne $v0, 0, sortiez	
 			jal newLine
-			li $a0, 1
-			jal trait
-			jal newLine
+
 		sortiez:
 		
 		j boucle_printArrayGrid
@@ -181,11 +178,10 @@ main:
 	jal changeArrayAsciiCode
 	jal printArrayGrid
 	jal newLine
-	jal trait
-
+	
 # Mettre des appels de fonctions dans cette zone.
 	li $a0 4
-	#jal colonneNValide
+	jal colonneNValide
 	
 
 # Fin de la zone d'appel de fonctions.
