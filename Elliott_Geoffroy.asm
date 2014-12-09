@@ -145,7 +145,7 @@ printArrayGrid:
 			add		$t1, $t1, 1				# $t1 += 1;
 
 		move $a0 $t1
-		li $a1, 9
+		li $a1, 27
 		jal modulo 
 		bne $v0, 0, sortiez
 			li		$v0, 11
