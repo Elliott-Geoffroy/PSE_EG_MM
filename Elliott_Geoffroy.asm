@@ -130,7 +130,9 @@ printArrayGrid:
 	la	 	$t0, grille
 	add 	$sp, $sp, -4		# \ Sauvegarde de la reference du dernier jump
 	sw 		$ra, 0($sp)
-							
+				
+	jal TraitVert
+										
 	li		$t1, 0
 	boucle_printArrayGrid:
 		bge 	$t1, 81, end_printArrayGrid 	# Si $t1 est plus grand ou egal a 81 alors branchement a end_printArray
@@ -139,28 +141,29 @@ printArrayGrid:
 			li		$v0, 1					# code pour l'affichage d'un entier
 			syscall
 			add		$t1, $t1, 1				# $t1 += 1;
-
+		
 		move $a0 $t1
-		li $a1, 27
-		jal modulo 
-		bne $v0, 0, sortiez
-			jal newLine
-			jal neufTrait
-			jal newLine
-		sortiez:
+		beq $a0, 80, nothing
 			move $a0 $t1
-		li $a1, 9
-		jal modulo 
-		bne $v0, 0, sortiezzz
-			jal newLine
-		sortiezzz:
-		move $a0 $t1
-		li $a1, 3
-		jal modulo 
-		bne $v0, 0, sortiezz	
-			jal TraitVert
-		sortiezz:
-	
+			li $a1, 27
+			jal modulo 
+			bne $v0, 0, sortiez
+				jal newLine
+				jal neufTrait
+			sortiez:
+				move $a0 $t1
+			li $a1, 9
+			jal modulo 
+			bne $v0, 0, sortiezzz
+				jal newLine
+			sortiezzz:
+			move $a0 $t1
+			li $a1, 3
+			jal modulo 
+			bne $v0, 0, sortiezz	
+				jal TraitVert
+			sortiezz:
+		nothing:
 		
 		j boucle_printArrayGrid
 	end_printArrayGrid:
