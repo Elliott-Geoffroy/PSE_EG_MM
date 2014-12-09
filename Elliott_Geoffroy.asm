@@ -199,7 +199,7 @@ colonneNValide:
 	colNFalse:
 		li $v0, 0
 	lw 		$ra, 0($sp)
-
+	add 	$sp, $sp, 4
 	jr $ra
 
 ligneNValide:
