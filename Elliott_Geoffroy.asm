@@ -116,7 +116,7 @@ TraitVert:
 	sub 	$sp, $sp, 4
 	sw 		$ra, 0($sp)
 			li		$v0, 11
-			li		$a0, 214
+			li		$a0, 124
 			syscall
 	lw 		$ra, 0($sp)
 	add 	$sp, $sp, 4
