@@ -195,9 +195,11 @@ colonneNValide:
 		
 	
 	bge $a0, 1, colNFalse
-		li $v0, 1
+		li $a0, 1
 	colNFalse:
-		li $v0, 0
+		li $a0, 0
+		
+		move $v0 $a0
 	lw 		$ra, 0($sp)
 	add 	$sp, $sp, 4
 	jr $ra
