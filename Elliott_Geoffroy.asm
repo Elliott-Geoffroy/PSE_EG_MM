@@ -161,6 +161,15 @@ printArrayGrid:
 		bne $v0, 0, sortiezz	
 			jal TraitVert
 		sortiezz:
+		li $a1, 9
+		jal modulo 
+		bne $v0, 0, sortiez
+			li		$v0, 11
+			li		$a0, 124
+			syscall	
+			jal newLine
+		sortiez:
+		
 		j boucle_printArrayGrid
 	end_printArrayGrid:
 		lw 		$ra, 0($sp)					# \ On recharge la reference 
