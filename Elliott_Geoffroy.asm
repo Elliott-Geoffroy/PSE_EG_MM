@@ -213,7 +213,7 @@ colonneNValide:
 			end_loop_recherche_col:
 		bgt $v0, 1, notGood
 		add $a1, $a1, 1
-	j loop_colNValide1:
+	j loop_colNValide1
 	
 	notGood:
 	
