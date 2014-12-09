@@ -191,15 +191,16 @@ colonneNValide:
 	sw 	$ra, 0($sp)
 
 
-		li $a0,  0
+		li $v0,  0
 		
 	
-	bge $a0, 1, colNFalse
-		li $a0, 1
+	bge $v0, 1, colNFalse
+		li $v0, 1
+		j out_col_val
 	colNFalse:
-		li $a0, 0
+		li $v0, 0
+	out_col_val:	
 		
-		move $v0 $a0
 	lw 		$ra, 0($sp)
 	add 	$sp, $sp, 4
 	jr $ra
