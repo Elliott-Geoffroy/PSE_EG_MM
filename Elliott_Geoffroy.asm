@@ -191,7 +191,7 @@ colonneNValide:
 	sw 	$ra, 0($sp)
 
 
-		li $v0,  0
+		li $v0,  1
 		
 	
 	bge $v0, 1, colNFalse
@@ -237,7 +237,6 @@ main:
 	jal colonneNValide
 	move $a0 $v0
 	li $v0,  1
-	move $a0 $a0
 	syscall
 
 # Fin de la zone d'appel de fonctions.
