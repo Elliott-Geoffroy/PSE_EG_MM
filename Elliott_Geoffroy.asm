@@ -130,7 +130,9 @@ printArrayGrid:
 	la	 	$t0, grille
 	add 	$sp, $sp, -4		# \ Sauvegarde de la reference du dernier jump
 	sw 		$ra, 0($sp)
-				
+			
+	jal neufTrait
+	jal newLine				
 	jal TraitVert
 										
 	li		$t1, 0
@@ -143,7 +145,7 @@ printArrayGrid:
 			add		$t1, $t1, 1				# $t1 += 1;
 		
 		move $a0 $t1
-		beq $a0, 80, nothing
+		bge $a0, 879, nothing
 			move $a0 $t1
 			li $a1, 27
 			jal modulo 
@@ -155,6 +157,7 @@ printArrayGrid:
 			li $a1, 9
 			jal modulo 
 			bne $v0, 0, sortiezzz
+				jal traitVert
 				jal newLine
 			sortiezzz:
 			move $a0 $t1
