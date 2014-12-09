@@ -97,6 +97,22 @@ modulo:
 	jr $ra
 
 # Zone de déclaration de vos fonctions
+neufTrait:
+	sub 	$sp, $sp, 4
+	sw 		$ra, 0($sp)
+	li $a1, 0
+	boucle_neufTrait:beq $a1, 9, endBoucleNeufTrait
+			li		$v0, 11
+			li		$a0, 45
+			syscall
+			add $a1, $a1, 1
+			j boucle_neufTrait
+	endBoucleNeufTrait:
+	lw 		$ra, 0($sp)
+	add 	$sp, $sp, 4
+	jr $ra
+
+
 
 # Affiche la grille en grille.
 # Registres utilises : $v0, $a0, $t[0-2] et $a1
@@ -117,11 +133,9 @@ printArrayGrid:
 		li $a1, 9
 		jal modulo 
 		bne $v0, 0, sortiez	
-			jal newLine
-			li		$v0, 11
-			li		$a0, 45
-			syscall
-
+			j newLine
+			j neufTrait
+			j newLine
 		sortiez:
 		
 		j boucle_printArrayGrid
