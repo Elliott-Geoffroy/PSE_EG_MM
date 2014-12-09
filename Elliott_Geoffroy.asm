@@ -101,7 +101,7 @@ neufTrait:
 	sub 	$sp, $sp, 4
 	sw 		$ra, 0($sp)
 	li $a1, 0
-	boucle_neufTrait:beq $a1, 13, endBoucleNeufTrait
+	boucle_neufTrait:beq $a1, 12, endBoucleNeufTrait
 			li		$v0, 11
 			li		$a0, 45
 			syscall
@@ -130,10 +130,6 @@ printArrayGrid:
 	la	 	$t0, grille
 	add 	$sp, $sp, -4		# \ Sauvegarde de la reference du dernier jump
 	sw 		$ra, 0($sp)
-	
-	li		$v0, 11
-			li		$a0, 124
-			syscall
 							
 	li		$t1, 0
 	boucle_printArrayGrid:
@@ -148,9 +144,6 @@ printArrayGrid:
 		li $a1, 27
 		jal modulo 
 		bne $v0, 0, sortiez
-			li		$v0, 11
-			li		$a0, 124
-			syscall	
 			jal newLine
 			jal neufTrait
 			jal newLine
