@@ -161,6 +161,7 @@ printArrayGrid:
 		bne $v0, 0, sortiezz	
 			jal TraitVert
 		sortiezz:
+		move $a0 $t1
 		li $a1, 9
 		jal modulo 
 		bne $v0, 0, sortiezzz
