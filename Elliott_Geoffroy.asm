@@ -187,11 +187,14 @@ printArrayGrid:
 
 colonneNValide:
 
+	sub 	$sp, $sp, 4
+	sw 	$ra, 0($sp)
 
-		li $v0,  0
+
+		li $a0,  0
 		
 	
-	bge $v0, 1, colNFalse
+	bge $a0, 1, colNFalse
 		li $v0, 1
 	colNFalse:
 		li $v0, 0
