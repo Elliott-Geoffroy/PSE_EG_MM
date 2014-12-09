@@ -190,7 +190,7 @@ colonneNValide:
 	sw 	$ra, 0($sp)
 
 
-		LI $v0,  5
+		li $v0,  5
 		
 	
 	bgt $v0, 0, colNFalse
