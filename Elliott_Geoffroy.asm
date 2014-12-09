@@ -111,6 +111,16 @@ neufTrait:
 	lw 		$ra, 0($sp)
 	add 	$sp, $sp, 4
 	jr $ra
+	
+TraitVert:
+	sub 	$sp, $sp, 4
+	sw 		$ra, 0($sp)
+			li		$v0, 11
+			li		$a0, 214
+			syscall
+	lw 		$ra, 0($sp)
+	add 	$sp, $sp, 4
+	jr $ra
 
 
 
@@ -137,7 +147,14 @@ printArrayGrid:
 			jal neufTrait
 			jal newLine
 		sortiez:
-		
+		move $a0 $t1
+		li $a1, 3
+		jal modulo 
+		bne $v0, 0, sortiezz	
+			jal newLine
+			jal TraitVert
+			jal newLine
+		sortiezz:
 		j boucle_printArrayGrid
 	end_printArrayGrid:
 		lw 		$ra, 0($sp)					# \ On recharge la reference 
