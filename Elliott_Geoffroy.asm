@@ -163,12 +163,12 @@ printArrayGrid:
 		sortiezz:
 		li $a1, 9
 		jal modulo 
-		bne $v0, 0, sortiez
+		bne $v0, 0, sortiezzz
 			li		$v0, 11
 			li		$a0, 124
 			syscall	
 			jal newLine
-		sortiez:
+		sortiezzz:
 		
 		j boucle_printArrayGrid
 	end_printArrayGrid:
