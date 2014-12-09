@@ -148,18 +148,19 @@ printArrayGrid:
 			jal neufTrait
 			jal newLine
 		sortiez:
+			move $a0 $t1
+		li $a1, 9
+		jal modulo 
+		bne $v0, 0, sortiezzz
+			jal newLine
+		sortiezzz:
 		move $a0 $t1
 		li $a1, 3
 		jal modulo 
 		bne $v0, 0, sortiezz	
 			jal TraitVert
 		sortiezz:
-		move $a0 $t1
-		li $a1, 9
-		jal modulo 
-		bne $v0, 0, sortiezzz
-			jal newLine
-		sortiezzz:
+	
 		
 		j boucle_printArrayGrid
 	end_printArrayGrid:
