@@ -118,6 +118,9 @@ printArrayGrid:
 		jal modulo 
 		bne $v0, 0, sortiez	
 			jal newLine
+			li		$v0, 11
+			li		$a0, 45
+			syscall
 
 		sortiez:
 		
