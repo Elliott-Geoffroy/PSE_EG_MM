@@ -112,7 +112,7 @@ neufTrait:
 	add 	$sp, $sp, 4
 	jr $ra
 	
-TraitVert:
+traitVert:
 	sub 	$sp, $sp, 4
 	sw 		$ra, 0($sp)
 			li		$v0, 11
@@ -133,7 +133,7 @@ printArrayGrid:
 			
 	jal neufTrait
 	jal newLine				
-	jal TraitVert
+	jal traitVert
 										
 	li		$t1, 0
 	boucle_printArrayGrid:
@@ -164,7 +164,7 @@ printArrayGrid:
 			li $a1, 3
 			jal modulo 
 			bne $v0, 0, sortiezz	
-				jal TraitVert
+				jal traitVert
 			sortiezz:
 		nothing:
 		
