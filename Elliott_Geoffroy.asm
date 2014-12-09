@@ -101,7 +101,8 @@ neufTrait:
 	sub 	$sp, $sp, 4
 	sw 		$ra, 0($sp)
 	li $a1, 0
-	boucle_neufTrait:beq $a1, 12, endBoucleNeufTrait
+	jal traitVert
+	boucle_neufTrait:beq $a1, 11, endBoucleNeufTrait
 			li		$v0, 11
 			li		$a0, 45
 			syscall
@@ -132,6 +133,7 @@ printArrayGrid:
 	sw 		$ra, 0($sp)
 			
 	jal neufTrait
+	jal traitVert
 	jal newLine				
 	jal traitVert
 										
@@ -150,6 +152,7 @@ printArrayGrid:
 			li $a1, 27
 			jal modulo 
 			bne $v0, 0, sortiez
+				jal traitVert
 				jal newLine
 				jal neufTrait
 			sortiez:
