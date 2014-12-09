@@ -10,6 +10,7 @@ newLine:
 	li		$a0, 10
 	syscall
 	jr $ra
+	
 
 # Ouverture d'un fichier. 
 #	$a0 nom du fichier, 
@@ -186,9 +187,6 @@ printArrayGrid:
 
 colonneNValide:
 
-	sub 	$sp, $sp, 4
-	sw 	$ra, 0($sp)
-
 
 		li $v0,  0
 		
@@ -198,7 +196,7 @@ colonneNValide:
 	colNFalse:
 		li $v0, 0
 	lw 		$ra, 0($sp)
-	add 	$sp, $sp, 4
+
 	jr $ra
 
 ligneNValide:
