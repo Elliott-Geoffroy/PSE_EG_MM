@@ -98,6 +98,9 @@ modulo:
 	jr $ra
 
 # Zone de dÃ©claration de vos fonctions
+
+# Print trait pour séparer les box
+# Registres utilises : $v0, $a0, $a1
 neufTrait:
 	sub 	$sp, $sp, 4
 	sw 		$ra, 0($sp)
@@ -113,7 +116,9 @@ neufTrait:
 	lw 		$ra, 0($sp)
 	add 	$sp, $sp, 4
 	jr $ra
-	
+
+# Print un '|'
+# Registres utilises : $v0, $a0	
 traitVert:
 	sub 	$sp, $sp, 4
 	sw 		$ra, 0($sp)
@@ -183,16 +188,34 @@ printArrayGrid:
 #Verifie si la colonne N est valide
 #	$a0 numero de colonne
 # resultat dans $v0
-# Registres utilises : $a0
-
+# Registres utilises : $a0, $v0, $a1, $a2
 colonneNValide:
 
 	sub 	$sp, $sp, 4
 	sw 	$ra, 0($sp)
+	
+	li	$t1, 0
+	li 	$a1, 1 
+	loop_colNValide1: #recherche $a1 dans la colonne $a0
+		li $v0, 0
+		li $a2, 1
+			loop_recherche_col:
+				#$a3 charge la cellule
+				#beq $a1 $a3
+				add 	$t2, $t0, $a2			
+				lb	$a3, ($t2)				
+				li	$v0, 1					
+				syscall
 
-
-		li $v0,  1
-		
+				beq $a2, 9, end_loop_recherche_col
+				add $a2, $a2, 1
+			j loop_recherche_col	
+			end_loop_recherche_col
+		bgt $v0, 1, notGood
+		add $a1, $a1, 1
+	j loop_colNValide1:
+	
+	notGood:
 	
 	bge $v0, 1, colNFalse
 		li $v0, 1
