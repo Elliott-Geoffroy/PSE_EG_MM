@@ -133,9 +133,9 @@ printArrayGrid:
 		li $a1, 9
 		jal modulo 
 		bne $v0, 0, sortiez	
-			j newLine
-			j neufTrait
-			j newLine
+			jal newLine
+			jal neufTrait
+			jal newLine
 		sortiez:
 		
 		j boucle_printArrayGrid
