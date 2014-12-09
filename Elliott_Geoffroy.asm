@@ -190,17 +190,16 @@ colonneNValide:
 	sw 	$ra, 0($sp)
 
 
-		move	$t1 $a0
-		add 	$t2, $t0, $t1
-		lb	$a0, ($t2)				# load byte at $t2(adress) in $a0
-		li	$v0, 1					# code pour l'affichage d'un entier
-		syscall
+		LI $v0,  5
 		
-
+	
+	bgt $v0, 0, colNFalse
+		li $v0, 1
+	colNFalse:
+		li $v0, 0
 	lw 		$ra, 0($sp)
 	add 	$sp, $sp, 4
 	jr $ra
-			jal newLine
 
 ligneNValide:
 
@@ -232,10 +231,12 @@ main:
 # Mettre des appels de fonctions dans cette zone.
 	li $a0 4
 	jal colonneNValide
-	
+	move $a0 $v0
+	li $v0,  1
+	syscall
 
 # Fin de la zone d'appel de fonctions.
-
+jal newLine
 exit: 
 	li		$v0, 10
 	syscall
