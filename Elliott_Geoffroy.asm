@@ -210,7 +210,7 @@ colonneNValide:
 				beq $a2, 9, end_loop_recherche_col
 				add $a2, $a2, 1
 			j loop_recherche_col	
-			end_loop_recherche_col
+			end_loop_recherche_col:
 		bgt $v0, 1, notGood
 		add $a1, $a1, 1
 	j loop_colNValide1:
