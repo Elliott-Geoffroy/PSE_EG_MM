@@ -374,6 +374,10 @@ sub 	$sp, $sp, 4
 	loop_all_colonnes:
 		jal colonneNValide
 		add $a1, $a1, $v1
+		move $a0 $v1
+		li $v0,  1
+		syscall
+		
 		beq $a3, 8, end_loop_all_colonnes
 		add $a3, $a3, 1
 	j loop_all_colonnes
