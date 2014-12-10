@@ -293,7 +293,7 @@ sub 	$sp, $sp, 4
 	loop_carNValide1: #recherche $a1 dans la carre $a3
 		li	$v1, 0
 		li	$a2, 0
-		li 	$a2, $a3
+		move 	$a2 $a3
 		li	$t1, 0
 		
 		ble	$a3, 2, troisPremiers
