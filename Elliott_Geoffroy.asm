@@ -523,7 +523,8 @@ sub 	$sp, $sp, 4
 					
 					
 						jal printArrayGrid
-					
+						jal newLine 
+						jal newLine
 			
 			
 				beq $t3, 9, GET_OUT
