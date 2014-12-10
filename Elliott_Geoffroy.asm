@@ -232,10 +232,7 @@ colonneNValide:
 	colNFalse:
 		li 	$v1, 0 #colonnes NOT OK (FALSE)
 	out_col_val:	
-		
-			move $a0 $v1
-		li $v0, 1
-		syscall
+
 		
 	lw 		$ra, 0($sp)
 	add 	$sp, $sp, 4
@@ -286,9 +283,7 @@ sub 	$sp, $sp, 4
 		li 	$v1, 0 #ligne NOT OK (FALSE)
 	out_li_val:	
 		
-			move $a0 $v1
-		li $v0, 1
-		syscall
+
 		
 	lw 		$ra, 0($sp)
 	add 	$sp, $sp, 4
@@ -373,9 +368,7 @@ sub 	$sp, $sp, 4
 		li 	$v1, 0 #carre NOT OK (FALSE)
 	out_car_val:	
 	
-		move $a0 $v1
-		li $v0, 1
-		syscall
+		
 					
 	lw 		$ra, 0($sp)
 	add 	$sp, $sp, 4
@@ -555,29 +548,92 @@ main:
 	#syscall
 	#jal newLine
 	
-	jal colonnesValides
-	jal newLine
-	move $a0 $v1
-	li $v0,  1
-	syscall
-	jal newLine
+	#jal colonnesValides
+	#jal newLine
+	#move $a0 $v1
+	#li $v0,  1
+	#syscall
+	#jal newLine
 	
-	jal lignesValides
-	jal newLine
-	move $a0 $v1
-	li $v0,  1
-	syscall
-	jal newLine
+	#jal lignesValides
+	#jal newLine
+	#move $a0 $v1
+	#li $v0,  1
+	#syscall
+	#jal newLine
 	
-	jal carresValides
-	jal newLine
-	move $a0 $v1
-	li $v0,  1
-	syscall
-	jal newLine
+	#jal carresValides
+	#jal newLine
+	#move $a0 $v1
+	#li $v0,  1
+	#syscall
+	#jal newLine
 
-	jal sudokuValides
+	#jal sudokuValides
+	#jal newLine
+	#move $a0 $v1
+	#li $v0,  1
+	#syscall
+	#jal newLine
+	
+	li $a3 0
+	jal carreNValide
+	move $a0 $v1
+	li $v0,  1
+	syscall
 	jal newLine
+	
+		li $a3 1
+	jal carreNValide
+	move $a0 $v1
+	li $v0,  1
+	syscall
+	jal newLine
+	
+		li $a3 2
+	jal carreNValide
+	move $a0 $v1
+	li $v0,  1
+	syscall
+	jal newLine
+	
+		li $a3 3
+	jal carreNValide
+	move $a0 $v1
+	li $v0,  1
+	syscall
+	jal newLine
+	
+		li $a3 4
+	jal carreNValide
+	move $a0 $v1
+	li $v0,  1
+	syscall
+	jal newLine
+	
+		li $a3 5
+	jal carreNValide
+	move $a0 $v1
+	li $v0,  1
+	syscall
+	jal newLine
+	
+		li $a3 6
+	jal carreNValide
+	move $a0 $v1
+	li $v0,  1
+	syscall
+	jal newLine
+	
+		li $a3 7
+	jal carreNValide
+	move $a0 $v1
+	li $v0,  1
+	syscall
+	jal newLine
+	
+		li $a3 8
+	jal carreNValide
 	move $a0 $v1
 	li $v0,  1
 	syscall
