@@ -1,5 +1,7 @@
 .data
 grille: .byte 81
+varcol: .byte 1
+
 
 .text
 
@@ -373,7 +375,9 @@ sub 	$sp, $sp, 4
 	li $a1, 0
 	li 	$v1, 0
 	loop_all_colonnes:
+		sw $a1, varcol
 		jal colonneNValide
+		lw $a1, varcol
 		add $a1, $a1, $v1
 		move $a0 $v1
 		li $v0,  1
