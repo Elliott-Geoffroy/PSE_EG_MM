@@ -519,8 +519,6 @@ sub 	$sp, $sp, 4
 				move $a0 $v1
 					li $v0,  1
 					syscall
-	
-				l
 				lb $t1, varco1
 				lb $t2, varco2
 				lb $a1, varco3
