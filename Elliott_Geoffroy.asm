@@ -206,8 +206,8 @@ colonneNValide:
 				#beq $a1 $a3
 				add 	$t2, $t0, $t1			
 				lb	$a0, ($t2)				
-				bne $a0, $a1, notequalCol 
-				add $v1, $v1, 1
+				bne 	$a0, $a1, notequalCol 
+				add 	$v1, $v1, 1
 				notequalCol:
 				beq	$a2, 9, end_loop_recherche_col
 				add 	$a2, $a2, 1
@@ -221,7 +221,7 @@ colonneNValide:
 	
 	notGood:
 	end_loop_colNValide1:
-	bge $v1, 1, colNFalse
+	bgt $v1, 1, colNFalse
 		li 	$v1, 1 #colonnes OK (TRUE)
 		j out_col_val
 	colNFalse:
