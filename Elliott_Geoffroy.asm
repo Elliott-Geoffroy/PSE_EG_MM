@@ -188,7 +188,7 @@ printArrayGrid:
 #Verifie si la colonne N est valide
 #	$a0 numero de colonne
 # resultat dans $v0
-# Registres utilises : $a0, $v0, $a1, $a2
+# Registres utilises : $a0, $v0, $a1, $a2, $a3
 colonneNValide:
 
 	sub 	$sp, $sp, 4
@@ -204,8 +204,9 @@ colonneNValide:
 				#$a3 charge la cellule
 				#beq $a1 $a3
 				add 	$t2, $t0, $t1			
-				lb	$a3, ($t2)				
-				li	$v0, 1					
+				lb	$a0, ($t2)				
+				li	$v0, 1	
+				move					
 				syscall
 
 				beq	$a2, 9, end_loop_recherche_col
@@ -258,7 +259,7 @@ main:
 	jal newLine
 	
 # Mettre des appels de fonctions dans cette zone.
-	li $a0 4
+	li $a3 4
 	jal colonneNValide
 	move $a0 $v0
 	li $v0,  1
