@@ -262,7 +262,55 @@ main:
 	jal newLine
 	
 # Mettre des appels de fonctions dans cette zone.
+	li $a3 0
+	jal colonneNValide
+	move $a0 $v1
+	li $v0,  1
+	syscall
+	
+	li $a3 1
+	jal colonneNValide
+	move $a0 $v1
+	li $v0,  1
+	syscall
+	
+	li $a3 2
+	jal colonneNValide
+	move $a0 $v1
+	li $v0,  1
+	syscall
+	
+	li $a3 3
+	jal colonneNValide
+	move $a0 $v1
+	li $v0,  1
+	syscall
+	
 	li $a3 4
+	jal colonneNValide
+	move $a0 $v1
+	li $v0,  1
+	syscall
+	
+	li $a3 5
+	jal colonneNValide
+	move $a0 $v1
+	li $v0,  1
+	syscall
+	
+	li $a3 6
+	jal colonneNValide
+	move $a0 $v1
+	li $v0,  1
+	syscall
+	
+	li $a3 7
+	jal colonneNValide
+	move $a0 $v1
+	li $v0,  1
+	syscall
+	
+	li $a3 8
 	jal colonneNValide
 	move $a0 $v1
 	li $v0,  1
