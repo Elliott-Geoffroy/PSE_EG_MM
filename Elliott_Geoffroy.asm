@@ -385,10 +385,7 @@ sub 	$sp, $sp, 4
 			
 		jal colonneNValide
 		
-		
-		move $a0 $v1
-		li $v0, 1
-	syscall
+
 		
 		add $t7, $t7, $v1
 		beq $a3, 8, end_loop_all_colonnes
@@ -423,9 +420,7 @@ sub 	$sp, $sp, 4
 	jal ligneNValide
 	
 		
-		move $a0 $v1
-		li $v0, 1
-	syscall
+
 		
 		add $t7, $t7, $v1
 		beq $a3, 8, end_loop_all_lignes
@@ -456,9 +451,7 @@ sub 	$sp, $sp, 4
 	jal carreNValide
 		
 		
-		move $a0 $v1
-		li $v0, 1
-		syscall
+	
 		
 		add $t7, $t7, $v1
 		beq $a3, 8, end_loop_all_carre
