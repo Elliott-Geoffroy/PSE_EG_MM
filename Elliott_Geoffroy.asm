@@ -206,9 +206,6 @@ colonneNValide:
 				#beq $a1 $a3
 				add 	$t2, $t0, $t1			
 				lb	$a0, ($t2)				
-				li 	$v0, 1
-				syscall
-				
 				bne $a0, $a1, notequalCol 
 				add $v1, $v1, 1
 				notequalCol:
