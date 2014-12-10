@@ -439,65 +439,23 @@ carresValides:
 sub 	$sp, $sp, 4
 	sw 	$ra, 0($sp)
 
-	li $a1, 0
-	
-	li $a3, 1
-	sw $a1, varcol
-	jal carreNValide
-	lw $a1, varcol
-	add $a1, $a1 , $v1
-	
-	
-	li $a3, 0
-	sw $a1, varcol
-	jal carreNValide
-	lw $a1, varcol
-	add $a1, $a1 , $v1
-	
-
-	
-	li $a3, 2
-	sw $a1, varcol
-	jal carreNValide
-	lw $a1, varcol
-	add $a1, $a1 , $v1
-	
-	li $a3, 3
-	sw $a1, varcol
-	jal carreNValide
-	lw $a1, varcol
-	add $a1, $a1 , $v1
-	
-	li $a3, 4
-	sw $a1, varcol
-	jal carreNValide
-	lw $a1, varcol
-	add $a1, $a1 , $v1
-	
-	li $a3, 5
-	sw $a1, varcol
-	jal carreNValide
-	lw $a1, varcol
-	add $a1, $a1 , $v1
-	
-	li $a3, 6
-	sw $a1, varcol
-	jal carreNValide
-	lw $a1, varcol
-	add $a1, $a1 , $v1
-	
-	li $a3, 7
-	sw $a1, varcol
-	jal carreNValide
-	lw $a1, varcol
-	add $a1, $a1 , $v1
-	
-	li $a3, 8
-	sw $a1, varcol
-	jal carreNValide
-	lw $a1, varcol
-	add $a1, $a1 , $v1
-	
+	li $a3, 0				 
+	li $a1, 0				
+	loop_all_carre:
+		sw $a1, varcol
+			
+	j carreNValide
+		lw $a1, varcol
+		
+		move $a0 $v1
+		li $v0, 1
+	syscall
+		
+		add $a1, $a1, $v1
+		beq $a3, 8, end_loop_all_carre
+		add $a3, $a3, 1
+j loop_all_carre
+	end_loop_all_carre:
 	
 
 	bne $a1, 9, allcarFalse
