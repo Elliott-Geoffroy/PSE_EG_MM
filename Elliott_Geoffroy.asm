@@ -387,6 +387,8 @@ sub 	$sp, $sp, 4
 		li $v0,  1
 		syscall
 		
+		jal newLine
+		
 		beq $a3, 8, end_loop_all_colonnes
 		add $a3, $a3, 1
 	j loop_all_colonnes
