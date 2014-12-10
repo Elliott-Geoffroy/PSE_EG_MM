@@ -507,16 +507,26 @@ sub 	$sp, $sp, 4
 	BIG_BLACK_LOOP:
 		add 	$t2, $t0, $t1			
 			lb	$a0, ($t2)
-		
-		li $v0, 1
-		syscall
-		
-		
-		
-		beq $t1, 80, GET_OUT
+		bne $a0, 0, NEXT
+			li $t3, 1
+			BLACK_LOOP:
+				sb $t3, ($t2)
+				
+				jal sudokuValides
+					bne $v1, 1, NOPE
+						jal printArrayGrid
+					NOPE:
+			
+			
+				beq $t3, 9, GET_OUT
+				add $t3, $t3, 1
+			j BLACK_LOOP
+			GET_OUT:
+		NEXT:
+		beq $t1, 80, BIG_GET_OUT
 		add $t1, $t1, 1
 	j BIG_BLACK_LOOP
-	GET_OUT:
+	BIG_GET_OUT:
 		lw 		$ra, 0($sp)
 	add 	$sp, $sp, 4
 jr $ra
