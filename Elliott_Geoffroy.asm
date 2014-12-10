@@ -186,9 +186,9 @@ printArrayGrid:
 
 
 #Verifie si la colonne N est valide
-#	$a0 numero de colonne
+#	$a3 numero de colonne
 # resultat dans $v0
-# Registres utilises : $a0, $v0, $a1, $a2, $a3
+# Registres utilises : $a[0-3], $v0, $t[0-2]
 colonneNValide:
 
 	sub 	$sp, $sp, 4
@@ -196,7 +196,7 @@ colonneNValide:
 	
 	
 	li 	$a1, 1 
-	loop_colNValide1: #recherche $a1 dans la colonne $a0
+	loop_colNValide1: #recherche $a1 dans la colonne $a3
 		li	$v0, 0
 		li 	$a2, 1
 		li	$t1, 0
@@ -205,9 +205,10 @@ colonneNValide:
 				#beq $a1 $a3
 				add 	$t2, $t0, $t1			
 				lb	$a0, ($t2)				
-				li	$v0, 1					
-				syscall
-
+				
+				bne $a0, $a1, notequalCol 
+				add $v0, $v0, 1
+				notequalCol:
 				beq	$a2, 9, end_loop_recherche_col
 				add 	$a2, $a2, 1
 				add 	$t1, $t1, 1
@@ -233,44 +234,7 @@ colonneNValide:
 
 ligneNValide:
 
-sub 	$sp, $sp, 4
-	sw 	$ra, 0($sp)
-	
-	
-	li 	$a1, 1 
-	loop_colNValide1: #recherche $a1 dans la colonne $a0
-		li	$v0, 0
-		li 	$a2, 1
-		li	$t1, 0
-			loop_recherche_col:
-				#$a3 charge la cellule
-				#beq $a1 $a3
-				add 	$t2, $t0, $t1			
-				lb	$a0, ($t2)				
-				li	$v0, 1					
-				syscall
 
-				beq	$a2, 9, end_loop_recherche_col
-				add 	$a2, $a2, 1
-				add 	$t1, $t1, 1
-			j loop_recherche_col	
-			end_loop_recherche_col:
-		bgt 	$v0, 1, notGood
-		add 	$a1, $a1, 1
-	j loop_colNValide1
-	
-	notGood:
-	
-	bge $v0, 1, colNFalse
-		li 	$v0, 1
-		j out_col_val
-	colNFalse:
-		li 	$v0, 0
-	out_col_val:	
-		
-	lw 		$ra, 0($sp)
-	add 	$sp, $sp, 4
-	jr $ra
 
 carreNValide:
 
