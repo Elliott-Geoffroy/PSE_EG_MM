@@ -486,25 +486,44 @@ sub 	$sp, $sp, 4
 
 	li $a1, 0
 
+	jal newLine
 	
 	jal colonnesValides
-	
+	move $a0 $v1
+	li $v0,  1
+	syscall
+	jal newLine
 	add $a1, $a1 , $v1
-
+move $a0 $v1
+	li $v0,  1
+	syscall
+	jal newLine
 	jal newLine
 
 	
 	jal lignesValides
-	
+	move $a0 $v1
+	li $v0,  1
+	syscall
+	jal newLine
 	add $a1, $a1 , $v1
-
+move $a0 $v1
+	li $v0,  1
+	syscall
+	jal newLine
 	jal newLine
 			
 	
 	jal carresValides
-
+move $a0 $v1
+	li $v0,  1
+	syscall
+	jal newLine
 	add $a1, $a1 , $v1
-	
+	move $a0 $v1
+	li $v0,  1
+	syscall
+	jal newLine
 	bne $a1, 3, allsudFalse
 		li 	$v1, 1 #sudoku OK (TRUE)
 		j out_allsud_val
