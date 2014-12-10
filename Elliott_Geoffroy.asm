@@ -222,6 +222,10 @@ colonneNValide:
 		add 	$a1, $a1, 1
 	j loop_colNValide1
 	
+		move $a0 $v1
+		li $v0, 1
+	syscall
+	
 	notGoodcol:
 	end_loop_colNValide1:
 	bgt $v1, 1, colNFalse
@@ -269,6 +273,10 @@ sub 	$sp, $sp, 4
 		beq	$a1, 9, end_loop_liNValide1
 		add 	$a1, $a1, 1
 	j loop_liNValide1
+	
+		move $a0 $v1
+		li $v0, 1
+	syscall
 	
 	notGoodli:
 	end_loop_liNValide1:
@@ -351,6 +359,10 @@ sub 	$sp, $sp, 4
 		beq	$a1, 9, end_loop_carNValide1
 		add 	$a1, $a1, 1
 	j loop_carNValide1
+	
+		move $a0 $v1
+		li $v0, 1
+	syscall
 	
 	notGoodcar:
 	end_loop_carNValide1:
