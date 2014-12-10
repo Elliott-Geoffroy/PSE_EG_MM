@@ -569,12 +569,12 @@ main:
 	#syscall
 	#jal newLine
 
-	#jal sudokuValides
-	#jal newLine
-	#move $a0 $v1
-	#li $v0,  1
-	#syscall
-	#jal newLine
+	jal sudokuValides
+	jal newLine
+	move $a0 $v1
+	li $v0,  1
+	syscall
+	jal newLine
 	
 
 	
