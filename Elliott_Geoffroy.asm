@@ -521,9 +521,9 @@ sub 	$sp, $sp, 4
 				
 				
 					
-					bne $v1, 1, NOPE
+					
 						jal printArrayGrid
-					NOPE:
+					
 			
 			
 				beq $t3, 9, GET_OUT
