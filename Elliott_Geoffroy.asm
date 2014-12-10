@@ -443,10 +443,10 @@ sub 	$sp, $sp, 4
 	li $a1, 0				
 	loop_all_carre:
 		sw $a1, varcol
-		sw $a3, varco3	
+			
 	jal carreNValide
 		lw $a1, varcol
-		lw $a3, varco3
+		
 		move $a0 $v1
 		li $v0, 1
 	syscall
