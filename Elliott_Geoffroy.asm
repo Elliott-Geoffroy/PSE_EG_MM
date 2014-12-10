@@ -613,6 +613,8 @@ sudokuValides:
 sub 	$sp, $sp, 4
 	sw 	$ra, 0($sp)
 
+	li $a1, 0
+
 	sw $a1, varco2
 	jal carresValides
 	lw $a1, varco2
@@ -631,7 +633,7 @@ sub 	$sp, $sp, 4
 	li $v0,  1
 	syscall
 
-	li $a1, 0
+	
 	sw $a1, varco2
 	jal colonnesValides
 	lw $a1, varco2
