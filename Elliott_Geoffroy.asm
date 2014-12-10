@@ -368,84 +368,26 @@ colonnesValides:
 sub 	$sp, $sp, 4
 	sw 	$ra, 0($sp)
 	
-	# 1ere tentative avec boucle, ECHEC, "jal colonneNValide" me retounre 0 pour la colonne central, 
-	#li $a3, 0				je n'ai pas trouvé la raison, du coup, j'ai fait un truc 
-	#li $a1, 0				qui n'est pas beau, mais qui fonctionne.
-	#loop_all_colonnes:
-	#	sw $a1, varcol
-	#		
-	#	jal colonneNValide
-	#	lw $a1, varcol
-	#	
-	#	#move $a0 $v1
-	#	#li $v0, 1
-	#	#syscall
-	#	
-	#	add $a1, $a1, $v1
-	#	beq $a3, 8, end_loop_all_colonnes
-	#	add $a3, $a3, 1
-	#j loop_all_colonnes
-	#end_loop_all_colonnes:
+	#1ere tentative avec boucle, ECHEC, "jal colonneNValide" me retounre 0 pour la colonne central, 
+	li $a3, 0				#je n'ai pas trouvé la raison, du coup, j'ai fait un truc 
+	li $a1, 0				#qui n'est pas beau, mais qui fonctionne.
+	loop_all_colonnes:
+		sw $a1, varcol
+			
+	jal colonneNValide
+		lw $a1, varcol
+		
+		move $a0 $v1
+		li $v0, 1
+	syscall
+		
+		add $a1, $a1, $v1
+		beq $a3, 8, end_loop_all_colonnes
+		add $a3, $a3, 1
+j loop_all_colonnes
+	end_loop_all_colonnes:
 	
-	li $a1, 0
 	
-	li $a3, 4	# OUI, si je met le 4 en premier il me sort le bon resultat....
-	sw $a1, varcol
-	jal colonneNValide
-	lw $a1, varcol
-	add $a1, $a1 , $v1
-	
-
-	
-	li $a3, 0
-	sw $a1, varcol
-	jal colonneNValide
-	lw $a1, varcol
-	add $a1, $a1 , $v1
-
-	li $a3, 1
-	sw $a1, varcol
-	jal colonneNValide
-	lw $a1, varcol
-	add $a1, $a1 , $v1
-
-	li $a3, 2
-	sw $a1, varcol
-	jal colonneNValide
-	lw $a1, varcol
-	add $a1, $a1 , $v1
-
-	li $a3, 3
-	sw $a1, varcol
-	jal colonneNValide
-	lw $a1, varcol
-	add $a1, $a1 , $v1
-
-	
-	li $a3, 5
-	sw $a1, varcol
-	jal colonneNValide
-	lw $a1, varcol
-	add $a1, $a1 , $v1
-	
-	li $a3 6
-	sw $a1, varcol
-	jal colonneNValide
-	lw $a1, varcol
-	add $a1, $a1 , $v1
-
-	li $a3 7
-	sw $a1, varcol
-	jal colonneNValide
-	lw $a1, varcol
-	add $a1, $a1 , $v1
-
-	li, $a3 8
-	sw $a1, varcol
-	jal colonneNValide
-	lw $a1, varcol
-	add $a1, $a1 , $v1
-
 
 	bne $a1, 9, allColFalse
 		li 	$v1, 1 #colonnes OK (TRUE)
