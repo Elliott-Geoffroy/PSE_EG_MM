@@ -392,7 +392,7 @@ sub 	$sp, $sp, 4
 	
 	li $a1, 0
 	
-	li $a3 4	# OUI, si je met le 4 en premier il me sort le bon resultat....
+	li $a3, 4	# OUI, si je met le 4 en premier il me sort le bon resultat....
 	sw $a1, varcol
 	jal colonneNValide
 	lw $a1, varcol
@@ -400,37 +400,38 @@ sub 	$sp, $sp, 4
 	
 
 	
-	li $a3 0
+	li $a3, 0
 	sw $a1, varcol
 	jal colonneNValide
 	lw $a1, varcol
 	add $a1, $a1 , $v1
 
-	li $a3 1
+	li $a3, 1
 	sw $a1, varcol
 	jal colonneNValide
 	lw $a1, varcol
 	add $a1, $a1 , $v1
 
-	li $a3 2
+	li $a3, 2
 	sw $a1, varcol
 	jal colonneNValide
 	lw $a1, varcol
 	add $a1, $a1 , $v1
 
-	li $a3 3
+	li $a3, 3
 	sw $a1, varcol
 	jal colonneNValide
 	lw $a1, varcol
 	add $a1, $a1 , $v1
 
 	
-	li $a3 5
+	li $a3, 5
 	sw $a1, varcol
 	jal colonneNValide
 	lw $a1, varcol
 	add $a1, $a1 , $v1
-
+	
+	li $a3 6
 	sw $a1, varcol
 	jal colonneNValide
 	lw $a1, varcol
@@ -442,7 +443,7 @@ sub 	$sp, $sp, 4
 	lw $a1, varcol
 	add $a1, $a1 , $v1
 
-	li $a3 8
+	li, $a3 8
 	sw $a1, varcol
 	jal colonneNValide
 	lw $a1, varcol
@@ -460,8 +461,29 @@ sub 	$sp, $sp, 4
 	lw 		$ra, 0($sp)
 	add 	$sp, $sp, 4
 jr $ra
-lignesValides:
 
+
+lignesValides:
+sub 	$sp, $sp, 4
+	sw 	$ra, 0($sp)
+
+	li $a1, 0
+	
+	li $a3, 0
+	jal ligneNValide
+
+
+	bne $a1, 9, allColFalse
+		li 	$v1, 1 #carre OK (TRUE)
+		j out_allCol_val
+	allColFalse:
+		li 	$v1, 0 #carre NOT OK (FALSE)
+	out_allCol_val:	
+
+	
+	lw 		$ra, 0($sp)
+	add 	$sp, $sp, 4
+jr $ra
 carresValides:
 
 sudokuValides:
