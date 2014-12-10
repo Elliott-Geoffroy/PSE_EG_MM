@@ -379,26 +379,11 @@ sub 	$sp, $sp, 4
 		jal colonneNValide
 		lw $a1, varcol
 		add $a1, $a1, $v1
-		move $a0 $v1
-		li $v0,  1
-		syscall
-		
-		move $a0 $a1
-		li $v0,  1
-		syscall
-		
-		jal newLine
-		
 		beq $a3, 8, end_loop_all_colonnes
 		add $a3, $a3, 1
 	j loop_all_colonnes
 	end_loop_all_colonnes:
 	
-	jal newLine
-	
-	move $a0 $a1
-	li $v0,  1
-	syscall
 	
 	bne $a1, 9, allColFalse
 		li 	$v1, 1 #carre OK (TRUE)
@@ -406,7 +391,7 @@ sub 	$sp, $sp, 4
 	allColFalse:
 		li 	$v1, 0 #carre NOT OK (FALSE)
 	out_allCol_val:	
-	jal newLine
+
 	
 	lw 		$ra, 0($sp)
 	add 	$sp, $sp, 4
