@@ -381,10 +381,10 @@ sub 	$sp, $sp, 4
 	li $a3, 0				 
 	li $a1, 0				
 	loop_all_colonnes:
-		sw $a1, varcol
+		
 			
 		jal colonneNValide
-		lw $a1, varcol
+		
 		
 		move $a0 $v1
 		li $v0, 1
@@ -418,10 +418,10 @@ sub 	$sp, $sp, 4
 	li $a3, 0				 
 	li $a1, 0				
 	loop_all_lignes:
-		sw $a1, varcol
+		
 			
 	jal ligneNValide
-		lw $a1, varcol
+	
 		
 		move $a0 $v1
 		li $v0, 1
@@ -451,10 +451,10 @@ sub 	$sp, $sp, 4
 	li $a3, 0				 
 	li $a1, 0				
 	loop_all_carre:
-		sw $a1, varcol
+		
 			
 	jal carreNValide
-		lw $a1, varcol
+		
 		
 		move $a0 $v1
 		li $v0, 1
