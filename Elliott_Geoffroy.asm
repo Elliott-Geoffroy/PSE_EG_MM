@@ -230,7 +230,7 @@ colonneNValide:
 		
 	lw 		$ra, 0($sp)
 	add 	$sp, $sp, 4
-	jr $ra
+jr $ra
 
 
 #Verifie si la ligne N est valide
@@ -278,7 +278,7 @@ sub 	$sp, $sp, 4
 		
 	lw 		$ra, 0($sp)
 	add 	$sp, $sp, 4
-	jr $ra
+jr $ra
 	
 #Verifie si le carre N est valide
 #	$a3 numero de carre
@@ -363,9 +363,34 @@ sub 	$sp, $sp, 4
 		
 	lw 		$ra, 0($sp)
 	add 	$sp, $sp, 4
-	jr $ra
+jr $ra
 colonnesValides:
-
+sub 	$sp, $sp, 4
+	sw 	$ra, 0($sp)
+	
+	
+	li $a3, 0
+	li $a1, 0
+	
+	loop_all_ colonnes:
+		jal colonneNValide
+		add $a1, $v1
+		beq $a3, 8, end_loop_all_colonnes
+		add $a3, $a3, 1
+	j loop_all_colonnes
+	end_loop_all_colonnes:
+	
+	bne $v1, 8, allColFalse
+		li 	$v1, 1 #carre OK (TRUE)
+		j out_allCol_val
+	allColFalse:
+		li 	$v1, 0 #carre NOT OK (FALSE)
+	out_allCol_val:	
+	
+	
+	lw 		$ra, 0($sp)
+	add 	$sp, $sp, 4
+jr $ra
 lignesValides:
 
 carresValides:
@@ -400,67 +425,18 @@ main:
 	#li $v0,  1
 	#syscall
 	
-	li $a3 0
-	jal carreNValide
+	#li $a3 0
+	#jal carreNValide
+	#move $a0 $v1
+	#li $v0,  1
+	#syscall
+	#jal newLine
+	
+	jal colonnesValides
 	move $a0 $v1
 	li $v0,  1
 	syscall
 	jal newLine
-	
-	li $a3 1
-	jal carreNValide
-	move $a0 $v1
-	li $v0,  1
-	syscall
-	jal newLine
-	
-	li $a3 2
-	jal carreNValide
-	move $a0 $v1
-	li $v0,  1
-	syscall
-	jal newLine
-	
-	li $a3 3
-	jal carreNValide
-	move $a0 $v1
-	li $v0,  1
-	syscall
-	jal newLine
-	
-	li $a3 4
-	jal carreNValide
-	move $a0 $v1
-	li $v0,  1
-	syscall
-	jal newLine
-	
-	li $a3 5
-	jal carreNValide
-	move $a0 $v1
-	li $v0,  1
-	syscall
-	jal newLine
-	
-	li $a3 6
-	jal carreNValide
-	move $a0 $v1
-	li $v0,  1
-	syscall
-	jal newLine
-	
-	li $a3 7
-	jal carreNValide
-	move $a0 $v1
-	li $v0,  1
-	syscall
-	jal newLine
-	
-	li $a3 8
-	jal carreNValide
-	move $a0 $v1
-	li $v0,  1
-	syscall
 
 # Fin de la zone d'appel de fonctions.
 jal newLine
