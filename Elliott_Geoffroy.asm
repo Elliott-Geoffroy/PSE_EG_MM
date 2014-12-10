@@ -1,8 +1,8 @@
 .data
 grille: .byte 81
-varcol: .word 23
-varco2: .word 23
-varco3: .word 23
+varcol: .byte 2
+varco2: .byte 2
+varco3: .byte 2
 
 .text
 
@@ -520,7 +520,7 @@ sub 	$sp, $sp, 4
 					li $v0,  1
 					syscall
 	
-				
+				l
 				lb $t1, varco1
 				lb $t2, varco2
 				lb $a1, varco3
