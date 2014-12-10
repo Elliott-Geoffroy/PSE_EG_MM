@@ -395,11 +395,7 @@ sub 	$sp, $sp, 4
 	lw $a1, varcol
 	add $a1, $a1 , $v1
 	
-	li $a3, 1
-	sw $a1, varcol
-	jal colonneNValide
-	lw $a1, varcol
-	add $a1, $a1 , $v1
+
 	
 	li $a3, 0
 	sw $a1, varcol
@@ -407,7 +403,11 @@ sub 	$sp, $sp, 4
 	lw $a1, varcol
 	add $a1, $a1 , $v1
 
-	
+	li $a3, 1
+	sw $a1, varcol
+	jal colonneNValide
+	lw $a1, varcol
+	add $a1, $a1 , $v1
 
 	li $a3, 2
 	sw $a1, varcol
@@ -537,17 +537,20 @@ sub 	$sp, $sp, 4
 
 	li $a1, 0
 	
+	li $a3, 1
+	sw $a1, varcol
+	jal carreNValide
+	lw $a1, varcol
+	add $a1, $a1 , $v1
+	
+	
 	li $a3, 0
 	sw $a1, varcol
 	jal carreNValide
 	lw $a1, varcol
 	add $a1, $a1 , $v1
 	
-	li $a3, 1
-	sw $a1, varcol
-	jal carreNValide
-	lw $a1, varcol
-	add $a1, $a1 , $v1
+
 	
 	li $a3, 2
 	sw $a1, varcol
