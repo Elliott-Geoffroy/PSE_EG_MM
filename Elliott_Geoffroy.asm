@@ -4,7 +4,15 @@ varcol: .word 23
 varco2: .word 23
 varco3: .word 23
 
-varTest: .word 23
+var1: .word 23
+
+var2: .word 23
+
+var3: .word 23
+
+var4: .word 23
+
+var5: .word 23
 .text
 
 # Effectue un retour a la ligne a l'ecran
@@ -512,13 +520,16 @@ sub 	$sp, $sp, 4
 			li $t3, 1
 			BLACK_LOOP:
 				sb $t3, ($t2)
-				
-				sw $t1, varTest
+
+				sw $a1, var2
+				sw $t1, var1
+				sw $t3, var3
+				sw $t2, var4
 				jal sudokuValides
-				lw $t1, varTest
-			
-				
-				
+				lw $t1, var1
+				lw $a1, var2
+				lw $t3, var3
+				lw $t2; var4
 					
 					bne $v1, 1, NOPE
 						jal printArrayGrid
