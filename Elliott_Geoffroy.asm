@@ -624,14 +624,7 @@ sub 	$sp, $sp, 4
 	li $v0,  1
 	syscall
 	
-	sw $a1, varco2
-	jal lignesValides
-	lw $a1, varco2
-	add $a1, $a1 , $v1
 	
-	move $a0 $v1
-	li $v0,  1
-	syscall
 
 	
 	sw $a1, varco2
@@ -644,7 +637,14 @@ sub 	$sp, $sp, 4
 	syscall
 	
 
+	sw $a1, varco2
+	jal lignesValides
+	lw $a1, varco2
+	add $a1, $a1 , $v1
 	
+	move $a0 $v1
+	li $v0,  1
+	syscall
 
 	
 	bne $a1, 3, allsudFalse
