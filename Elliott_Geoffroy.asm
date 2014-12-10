@@ -506,23 +506,27 @@ sub 	$sp, $sp, 4
 	li $t1, 0
 	BIG_BLACK_LOOP:
 		add 	$t2, $t0, $t1			
-			lb	$a0, ($t2)
-		bne $a0, 0, NEXT
+			lb	$a1, ($t2)
+		bne $a1, 0, NEXT
 			li $t3, 1
 			BLACK_LOOP:
 				sb $t3, ($t2)
 				
 				sw $t1, varco1
 				sw $t2, varco2
-				sw $a0, varco3
+				sw $a1, varco3
 				jal sudokuValides
-				lw $t1, varco1
-				lw $t2, varco2
-				lw $a0, varco3
-					move $a0 $v1
+				move $a0 $v1
 					li $v0,  1
 					syscall
 	
+				
+				lw $t1, varco1
+				lw $t2, varco2
+				lw $a1, varco3
+				
+				
+					
 					bne $v1, 1, NOPE
 						jal printArrayGrid
 					NOPE:
