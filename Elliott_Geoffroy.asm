@@ -529,7 +529,7 @@ sub 	$sp, $sp, 4
 				lw $t1, var1
 				lw $a1, var2
 				lw $t3, var3
-				lw $t2; var4
+				lw $t2, var4
 					
 					bne $v1, 1, NOPE
 						jal printArrayGrid
