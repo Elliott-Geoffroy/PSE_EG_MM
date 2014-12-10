@@ -689,6 +689,11 @@ main:
 	#syscall
 	#jal newLine
 	
+	li $a3, 1
+	jal carreNValide
+	move $a0 $v1
+	li $v0,  1
+	
 	jal colonnesValides
 	move $a0 $v1
 	li $v0,  1
