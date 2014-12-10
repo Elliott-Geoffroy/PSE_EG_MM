@@ -1,7 +1,7 @@
 .data
 grille: .byte 81
 varcol: .word 23
-
+varcor2: .word 23
 
 
 .text
@@ -451,10 +451,10 @@ sub 	$sp, $sp, 4
 
 
 	bne $a1, 9, allColFalse
-		li 	$v1, 1 #carre OK (TRUE)
+		li 	$v1, 1 #colonnes OK (TRUE)
 		j out_allCol_val
 	allColFalse:
-		li 	$v1, 0 #carre NOT OK (FALSE)
+		li 	$v1, 0 #colonnes NOT OK (FALSE)
 	out_allCol_val:	
 
 	
@@ -524,10 +524,10 @@ sub 	$sp, $sp, 4
 	add $a1, $a1 , $v1
 
 	bne $a1, 9, allliFalse
-		li 	$v1, 1 #carre OK (TRUE)
+		li 	$v1, 1 #lignes OK (TRUE)
 		j out_allli_val
 	allliFalse:
-		li 	$v1, 0 #carre NOT OK (FALSE)
+		li 	$v1, 0 #lignes NOT OK (FALSE)
 	out_allli_val:	
 
 	
@@ -535,8 +535,109 @@ sub 	$sp, $sp, 4
 	add 	$sp, $sp, 4
 jr $ra
 carresValides:
+sub 	$sp, $sp, 4
+	sw 	$ra, 0($sp)
+
+	li $a1, 0
+	
+	li $a3, 0
+	sw $a1, varcol
+	jal carreNValide
+	lw $a1, varcol
+	add $a1, $a1 , $v1
+	
+	li $a3, 1
+	sw $a1, varcol
+	jal carreNValide
+	lw $a1, varcol
+	add $a1, $a1 , $v1
+	
+	li $a3, 2
+	sw $a1, varcol
+	jal carreNValide
+	lw $a1, varcol
+	add $a1, $a1 , $v1
+	
+	li $a3, 3
+	sw $a1, varcol
+	jal carreNValide
+	lw $a1, varcol
+	add $a1, $a1 , $v1
+	
+	li $a3, 4
+	sw $a1, varcol
+	jal carreNValide
+	lw $a1, varcol
+	add $a1, $a1 , $v1
+	
+	li $a3, 5
+	sw $a1, varcol
+	jal carreNValide
+	lw $a1, varcol
+	add $a1, $a1 , $v1
+	
+	li $a3, 6
+	sw $a1, varcol
+	jal carreNValide
+	lw $a1, varcol
+	add $a1, $a1 , $v1
+	
+	li $a3, 7
+	sw $a1, varcol
+	jal carreNValide
+	lw $a1, varcol
+	add $a1, $a1 , $v1
+	
+	li $a3, 8
+	sw $a1, varcol
+	jal carreNValide
+	lw $a1, varcol
+	add $a1, $a1 , $v1
+	
+	
+
+	bne $a1, 9, allcarFalse
+		li 	$v1, 1 #carre OK (TRUE)
+		j out_allcar_val
+	allcarFalse:
+		li 	$v1, 0 #carre NOT OK (FALSE)
+	out_allcar_val:	
+
+	
+	lw 		$ra, 0($sp)
+	add 	$sp, $sp, 4
+jr $ra
+
 
 sudokuValides:
+sub 	$sp, $sp, 4
+	sw 	$ra, 0($sp)
+
+	li $a1, 0
+	sw $a1, varco2
+	jal colonnesValides
+	lw $a1, varco2
+	add $a1, $a1 , $v1
+	sw $a1, varco2
+	jal lignesValides
+	lw $a1, varco2
+	add $a1, $a1 , $v1
+	sw $a1, varco2
+	jal carresValides
+	lw $a1, varco2
+	add $a1, $a1 , $v1
+	
+	bne $a1, 3, allsudFalse
+		li 	$v1, 1 #sudoku OK (TRUE)
+		j out_allsud_val
+	allsudFalse:
+		li 	$v1, 0 #sudoku NOT OK (FALSE)
+	out_allsud_val:	
+	
+	lw 		$ra, 0($sp)
+	add 	$sp, $sp, 4
+jr $ra
+
 
 rechercheAlgo:
 
@@ -584,7 +685,18 @@ main:
 	li $v0,  1
 	syscall
 	jal newLine
+	
+	jal carresValides
+	move $a0 $v1
+	li $v0,  1
+	syscall
+	jal newLine
 
+	jal sudokuValides
+	move $a0 $v1
+	li $v0,  1
+	syscall
+	jal newLine
 	
 
 # Fin de la zone d'appel de fonctions.
