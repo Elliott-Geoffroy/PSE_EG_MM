@@ -467,47 +467,47 @@ sub 	$sp, $sp, 4
 	#end_loop_all_carre:
 		li $a3 0
 	jal carreNValide
-	beq $v1, 1, carreOK
-	carreNOOK
+	bne $v1, 1, carreNOOK
+	
 		li $a3 1
 	jal carreNValide
-	beq $v1, 1, carreOK
-	carreNOOK
+	bne $v1, 1, carreNOOK
+	
 	
 		li $a3 2
 	jal carreNValide
-	beq $v1, 1, carreOK
-	carreNOOK
+	bne $v1, 1, carreNOOK
+	
 	
 		li $a3 3
 	jal carreNValide
-	beq $v1, 1, carreOK
-	carreNOOK
+	bne $v1, 1, carreNOOK
+	
 	
 		li $a3 4
 	jal carreNValide
-	beq $v1, 1, carreOK
-	carreNOOK
+	bne $v1, 1, carreNOOK
+	
 	
 		li $a3 5
 	jal carreNValide
-	beq $v1, 1, carreOK
-	carreNOOK
+	bne $v1, 1, carreNOOK
+	
 	
 		li $a3 6
 	jal carreNValide
-	beq $v1, 1, carreOK
-	carreNOOK
+	bne $v1, 1, carreNOOK
+	
 	
 		li $a3 7
 	jal carreNValide
-	beq $v1, 1, carreOK
-	carreNOOK
+	bne $v1, 1, carreNOOK
+	
 	
 		li $a3 8
 	jal carreNValide
-	beq $v1, 1, carreOK
-	carreNOOK
+	bne $v1, 1, carreNOOK
+	
 
 	carreOK:
 		li 	$v1, 1 #carre OK (TRUE)
@@ -538,7 +538,7 @@ sub 	$sp, $sp, 4
 	lw $a1, varco2
 	add $a1, $a1 , $v1
 	
-		sw $a1, varco2
+	sw $a1, varco2
 	jal carresValides
 	lw $a1, varco2
 	add $a1, $a1 , $v1
@@ -590,33 +590,33 @@ main:
 	#syscall
 	#jal newLine
 	
-	#jal colonnesValides
-	#jal newLine
-	#move $a0 $v1
-	#li $v0,  1
-	#syscall
-	#jal newLine
+	jal colonnesValides
+	jal newLine
+	move $a0 $v1
+	li $v0,  1
+	syscall
+	jal newLine
 	
-	#jal lignesValides
-	#jal newLine
-	#move $a0 $v1
-	#li $v0,  1
-	#syscall
-	#jal newLine
+	jal lignesValides
+	jal newLine
+	move $a0 $v1
+	li $v0,  1
+	syscall
+	jal newLine
 	
-	#jal carresValides
-	#jal newLine
-	#move $a0 $v1
-	#li $v0,  1
-	#syscall
-	#jal newLine
+	jal carresValides
+	jal newLine
+	move $a0 $v1
+	li $v0,  1
+	syscall
+	jal newLine
 
-	#jal sudokuValides
-	#jal newLine
-	#move $a0 $v1
-	#li $v0,  1
-	#syscall
-	#jal newLine
+	jal sudokuValides
+	jal newLine
+	move $a0 $v1
+	li $v0,  1
+	syscall
+	jal newLine
 	
 
 	
