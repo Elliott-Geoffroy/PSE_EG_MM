@@ -513,10 +513,7 @@ sub 	$sp, $sp, 4
 				sb $t3, ($t2)
 				
 			
-				jal sudokuValides
-				move $a0 $v1
-					li $v0,  1
-					syscall
+			
 			
 				
 				
