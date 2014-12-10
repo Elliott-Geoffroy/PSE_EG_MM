@@ -447,68 +447,74 @@ jr $ra
 carresValides:
 sub 	$sp, $sp, 4
 	sw 	$ra, 0($sp)
-	li $a3 0
+
+	#li $a3, 0				 
+	#li $a1, 0				
+	#loop_all_carre:
+	#	sw $a1, varcol
+			
+	#jal carreNValide
+	#	lw $a1, varcol
+		
+	#	move $a0 $v1
+	#	li $v0, 1
+	#syscall
+		
+	#	add $a1, $a1, $v1
+	#	beq $a3, 8, end_loop_all_carre
+	#	add $a3, $a3, 1
+	#j loop_all_carre
+	#end_loop_all_carre:
+		li $a3 0
 	jal carreNValide
-	move $a0 $v1
-	li $v0,  1
-	syscall
-	jal newLine
-	
+	beq $v1, 1, carreOK
+	carreNOOK
 		li $a3 1
 	jal carreNValide
-	move $a0 $v1
-	li $v0,  1
-	syscall
-	jal newLine
+	beq $v1, 1, carreOK
+	carreNOOK
 	
 		li $a3 2
 	jal carreNValide
-	move $a0 $v1
-	li $v0,  1
-	syscall
-	jal newLine
+	beq $v1, 1, carreOK
+	carreNOOK
 	
 		li $a3 3
 	jal carreNValide
-	move $a0 $v1
-	li $v0,  1
-	syscall
-	jal newLine
+	beq $v1, 1, carreOK
+	carreNOOK
 	
 		li $a3 4
 	jal carreNValide
-	move $a0 $v1
-	li $v0,  1
-	syscall
-	jal newLine
+	beq $v1, 1, carreOK
+	carreNOOK
 	
 		li $a3 5
 	jal carreNValide
-	move $a0 $v1
-	li $v0,  1
-	syscall
-	jal newLine
+	beq $v1, 1, carreOK
+	carreNOOK
 	
 		li $a3 6
 	jal carreNValide
-	move $a0 $v1
-	li $v0,  1
-	syscall
-	jal newLine
+	beq $v1, 1, carreOK
+	carreNOOK
 	
 		li $a3 7
 	jal carreNValide
-	move $a0 $v1
-	li $v0,  1
-	syscall
-	jal newLine
+	beq $v1, 1, carreOK
+	carreNOOK
 	
 		li $a3 8
 	jal carreNValide
-	move $a0 $v1
-	li $v0,  1
-	syscall
-	jal newLine
+	beq $v1, 1, carreOK
+	carreNOOK
+
+	carreOK:
+		li 	$v1, 1 #carre OK (TRUE)
+		j out_allcar_val
+	carreNOOK:
+		li 	$v1, 0 #carre NOT OK (FALSE)
+	out_allcar_val:	
 
 	
 	lw 		$ra, 0($sp)
@@ -577,12 +583,12 @@ main:
 	#li $v0,  1
 	#syscall
 	
-	li $a3 0
-	jal carreNValide
-	move $a0 $v1
-	li $v0,  1
-	syscall
-	jal newLine
+	#li $a3 0
+	#jal carreNValide
+	#move $a0 $v1
+	#li $v0,  1
+	#syscall
+	#jal newLine
 	
 	#jal colonnesValides
 	#jal newLine
