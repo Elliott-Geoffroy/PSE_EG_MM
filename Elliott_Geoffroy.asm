@@ -200,6 +200,58 @@ colonneNValide:
 		li	$v1, 0
 		li 	$a2, 1
 		li	$t1, 0
+		move	$t1, $a3
+			loop_recherche_col:
+				#$a3 charge la cellule
+				#beq $a1 $a3
+				add 	$t2, $t0, $t1			
+				lb	$a0, ($t2)		
+				
+				li $v0, 1
+				syscall
+								
+				bne 	$a0, $a1, notequalCol 
+				add 	$v1, $v1, 1
+				notequalCol:
+				beq	$a2, 9, end_loop_recherche_col
+				add 	$a2, $a2, 1
+				add 	$t1, $t1, 9
+			j loop_recherche_col	
+			end_loop_recherche_col:
+		bgt 	$v1, 1, notGood
+		beq	$a1, 9, end_loop_colNValide1
+		add 	$a1, $a1, 1
+	j loop_colNValide1
+	
+	notGood:
+	end_loop_colNValide1:
+	bgt $v1, 1, colNFalse
+		li 	$v1, 1 #colonnes OK (TRUE)
+		j out_col_val
+	colNFalse:
+		li 	$v1, 0 #colonnes NOT OK (FALSE)
+	out_col_val:	
+		
+	lw 		$ra, 0($sp)
+	add 	$sp, $sp, 4
+	jr $ra
+
+
+#Verifie si la ligne N est valide
+#	$a3 numero de ligne
+# resultat dans $v1
+# Registres utilises : $a[0-3], $v[0-1], $t[0-2]
+ligneNValide:
+
+sub 	$sp, $sp, 4
+	sw 	$ra, 0($sp)
+	
+	
+	li 	$a1, 1 
+	loop_colNValide1: #recherche $a1 dans la ligne $a3
+		li	$v1, 0
+		li 	$a2, 1
+		li	$t1, 0
 		mul	$t1, $a3, 9
 			loop_recherche_col:
 				#$a3 charge la cellule
@@ -222,19 +274,15 @@ colonneNValide:
 	notGood:
 	end_loop_colNValide1:
 	bgt $v1, 1, colNFalse
-		li 	$v1, 1 #colonnes OK (TRUE)
+		li 	$v1, 1 #ligne OK (TRUE)
 		j out_col_val
 	colNFalse:
-		li 	$v1, 0 #colonnes NOT OK (FALSE)
+		li 	$v1, 0 #ligne NOT OK (FALSE)
 	out_col_val:	
 		
 	lw 		$ra, 0($sp)
 	add 	$sp, $sp, 4
 	jr $ra
-
-ligneNValide:
-
-
 
 carreNValide:
 
@@ -262,59 +310,66 @@ main:
 	jal newLine
 	
 # Mettre des appels de fonctions dans cette zone.
+	#li $a3 0
+	#jal ligneNValide
+	#move $a0 $v1
+	#li $v0,  1
+	#syscall
+	
 	li $a3 0
 	jal colonneNValide
 	move $a0 $v1
 	li $v0,  1
 	syscall
-	
+	jal newLine
 	li $a3 1
 	jal colonneNValide
 	move $a0 $v1
 	li $v0,  1
 	syscall
-	
+	jal newLine
 	li $a3 2
 	jal colonneNValide
 	move $a0 $v1
 	li $v0,  1
 	syscall
-	
+	jal newLine
 	li $a3 3
 	jal colonneNValide
 	move $a0 $v1
 	li $v0,  1
 	syscall
-	
+	jal newLine
 	li $a3 4
 	jal colonneNValide
 	move $a0 $v1
 	li $v0,  1
 	syscall
-	
+	jal newLine
 	li $a3 5
 	jal colonneNValide
 	move $a0 $v1
 	li $v0,  1
 	syscall
-	
+	jal newLine
 	li $a3 6
 	jal colonneNValide
 	move $a0 $v1
 	li $v0,  1
 	syscall
-	
+	jal newLine
 	li $a3 7
 	jal colonneNValide
 	move $a0 $v1
 	li $v0,  1
 	syscall
-	
+	jal newLine
 	li $a3 8
 	jal colonneNValide
 	move $a0 $v1
 	li $v0,  1
 	syscall
+	jal newLine
 
 # Fin de la zone d'appel de fonctions.
 jal newLine
