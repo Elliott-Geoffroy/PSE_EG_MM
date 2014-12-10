@@ -205,8 +205,7 @@ colonneNValide:
 				#beq $a1 $a3
 				add 	$t2, $t0, $t1			
 				lb	$a0, ($t2)				
-				li	$v0, 1	
-				move					
+				li	$v0, 1					
 				syscall
 
 				beq	$a2, 9, end_loop_recherche_col
