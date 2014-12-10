@@ -392,6 +392,16 @@ sub 	$sp, $sp, 4
 	
 	li $a1, 0
 	
+	li $a3 4
+	sw $a1, varcol
+	jal colonneNValide
+	lw $a1, varcol
+	add $a1, $a1 , $v1
+	move $a0 $v1
+	li $v0,  1
+	syscall
+
+	
 	li $a3 0
 	sw $a1, varcol
 	jal colonneNValide
@@ -450,14 +460,6 @@ sub 	$sp, $sp, 4
 	li $v0,  1
 	syscall
 	li $a3 8
-	sw $a1, varcol
-	jal colonneNValide
-	lw $a1, varcol
-	add $a1, $a1 , $v1
-	move $a0 $v1
-	li $v0,  1
-	syscall
-	li $a3 4
 	sw $a1, varcol
 	jal colonneNValide
 	lw $a1, varcol
