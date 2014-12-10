@@ -379,7 +379,7 @@ sub 	$sp, $sp, 4
 	
 	
 	li $a3, 0				 
-	li $t, 0				
+	li $t7, 0				
 	loop_all_colonnes:
 		
 			
