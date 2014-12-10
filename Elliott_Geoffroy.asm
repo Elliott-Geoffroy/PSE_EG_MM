@@ -478,17 +478,17 @@ sub 	$sp, $sp, 4
 	li $a1, 0
 
 	sw $a1, varco2
-	j carresValides
+	jal carresValides
 	lw $a1, varco2
 	add $a1, $a1 , $v1
 	
 	sw $a1, varco2
-	j colonnesValides
+	jal colonnesValides
 	lw $a1, varco2
 	add $a1, $a1 , $v1
 
 	sw $a1, varco2
-	j lignesValides
+	jal lignesValides
 	lw $a1, varco2
 	add $a1, $a1 , $v1
 	
