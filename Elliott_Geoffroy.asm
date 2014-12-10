@@ -512,7 +512,13 @@ sub 	$sp, $sp, 4
 			BLACK_LOOP:
 				sb $t3, ($t2)
 				
+				sw $t1, varco1
+				sw $t2, varco2
+				sw $a0, varco3
 				jal sudokuValides
+				lw $t1, varco1
+				lw $t2, varco2
+				lw $a0, varco3
 					move $a0 $v1
 					li $v0,  1
 					syscall
