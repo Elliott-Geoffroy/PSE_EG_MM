@@ -486,19 +486,23 @@ sub 	$sp, $sp, 4
 
 	li $a1, 0
 
-	sw $a1, varco2
+	
 	jal colonnesValides
-	lw $a1, varco2
+	
 	add $a1, $a1 , $v1
 
-	sw $a1, varco2
-	jal lignesValides
-	lw $a1, varco2
-	add $a1, $a1 , $v1
+	jal newLine
+
 	
-		sw $a1, varco2
+	jal lignesValides
+	
+	add $a1, $a1 , $v1
+
+	jal newLine
+			
+	
 	jal carresValides
-	lw $a1, varco2
+
 	add $a1, $a1 , $v1
 	
 	bne $a1, 3, allsudFalse
