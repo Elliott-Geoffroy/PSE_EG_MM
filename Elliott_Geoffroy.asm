@@ -374,13 +374,15 @@ sub 	$sp, $sp, 4
 	loop_all_colonnes:
 		jal colonneNValide
 		add $a1, $a1, $v1
-		move $a0 $v1	
+
+		
 		beq $a3, 8, end_loop_all_colonnes
 		add $a3, $a3, 1
 	j loop_all_colonnes
 	end_loop_all_colonnes:
 	
-	bne $v1, 9, allColFalse
+	
+	bne $a1, 9, allColFalse
 		li 	$v1, 1 #carre OK (TRUE)
 		j out_allCol_val
 	allColFalse:
