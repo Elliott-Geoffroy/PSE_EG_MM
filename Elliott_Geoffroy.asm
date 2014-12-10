@@ -1,6 +1,6 @@
 .data
 grille: .byte 81
-varcol: .word 
+varcol: .word 23
 varco2: .byte 2
 varco3: .byte 2
 
