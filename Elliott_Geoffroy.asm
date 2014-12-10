@@ -372,7 +372,7 @@ sub 	$sp, $sp, 4
 	li $a3, 0
 	li $a1, 0
 	
-	loop_all_ colonnes:
+	loop_all_colonnes:
 		jal colonneNValide
 		add $a1, $v1
 		beq $a3, 8, end_loop_all_colonnes
