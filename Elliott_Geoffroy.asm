@@ -1,7 +1,7 @@
 .data
 grille: .byte 81
 varcol: .word 23
-varco2: .word 23
+
 
 
 .text
@@ -376,10 +376,14 @@ sub 	$sp, $sp, 4
 	li $a1, 0
 	loop_all_colonnes:
 		sw $a1, varcol
-		sw $a3, varco2		
+			
 		jal colonneNValide
 		lw $a1, varcol
-		lw $a3, varco2
+		
+		move $a0 $v1
+		li $v0, 1
+		sycall
+		
 		add $a1, $a1, $v1
 		beq $a3, 8, end_loop_all_colonnes
 		add $a3, $a3, 1
