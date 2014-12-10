@@ -616,7 +616,7 @@ sub 	$sp, $sp, 4
 	li $a1, 0
 
 	sw $a1, varco2
-	jal carresValides
+	j carresValides
 	lw $a1, varco2
 	add $a1, $a1 , $v1
 	
@@ -628,7 +628,7 @@ sub 	$sp, $sp, 4
 
 	
 	sw $a1, varco2
-	jal colonnesValides
+	j colonnesValides
 	lw $a1, varco2
 	add $a1, $a1 , $v1
 	
@@ -638,7 +638,7 @@ sub 	$sp, $sp, 4
 	
 
 	sw $a1, varco2
-	jal lignesValides
+	j lignesValides
 	lw $a1, varco2
 	add $a1, $a1 , $v1
 	
