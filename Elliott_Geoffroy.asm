@@ -374,7 +374,7 @@ sub 	$sp, $sp, 4
 	loop_all_colonnes:
 		sw $a1, varcol
 			
-	jal colonneNValide
+	j colonneNValide
 		lw $a1, varcol
 		
 		move $a0 $v1
