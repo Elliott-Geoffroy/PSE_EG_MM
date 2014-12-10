@@ -466,46 +466,46 @@ sub 	$sp, $sp, 4
 	#j loop_all_carre
 	#end_loop_all_carre:
 		li $a3 0
-	jal carreNValide
+	jalr carreNValide
 	bne $v1, 1, carreNOOK
 	
 		li $a3 1
-	jal carreNValide
+	jalr carreNValide
 	bne $v1, 1, carreNOOK
 	
 	
 		li $a3 2
-	jal carreNValide
+	jalr carreNValide
 	bne $v1, 1, carreNOOK
 	
 	
 		li $a3 3
-	jal carreNValide
+	jalr carreNValide
 	bne $v1, 1, carreNOOK
 	
 	
 		li $a3 4
-	jal carreNValide
+	jalr carreNValide
 	bne $v1, 1, carreNOOK
 	
 	
 		li $a3 5
-	jal carreNValide
+	jalr carreNValide
 	bne $v1, 1, carreNOOK
 	
 	
 		li $a3 6
-	jal carreNValide
+	jalr carreNValide
 	bne $v1, 1, carreNOOK
 	
 	
 		li $a3 7
-	jal carreNValide
+	jalr carreNValide
 	bne $v1, 1, carreNOOK
 	
 	
 		li $a3 8
-	jal carreNValide
+	jalr carreNValide
 	bne $v1, 1, carreNOOK
 	
 
