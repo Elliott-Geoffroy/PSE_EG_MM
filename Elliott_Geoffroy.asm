@@ -512,24 +512,18 @@ sub 	$sp, $sp, 4
 	sw 	$ra, 0($sp)
 	
 	
-	li $t1, 0
+	li $t4, 0
 	BIG_BLACK_LOOP:
-		add 	$t2, $t0, $t1			
-			lb	$a1, ($t2)
+		add 	$t5, $t0, $t4			
+			lb	$a1, ($t5)
 		bne $a1, 0, NEXT
 			li $t3, 1
 			BLACK_LOOP:
-				sb $t3, ($t2)
+				sb $t3, ($t5)
 
-				sw $a1, var2
-				sw $t1, var1
-				sw $t3, var3
-				sw $t2, var4
+			
 				jal sudokuValides
-				lw $t1, var1
-				lw $a1, var2
-				lw $t3, var3
-				lw $t2, var4
+			
 					
 					bne $v1, 1, NOPE
 						jal printArrayGrid
@@ -542,7 +536,7 @@ sub 	$sp, $sp, 4
 			GET_OUT:
 		NEXT:
 		beq $t1, 80, BIG_GET_OUT
-		add $t1, $t1, 1
+		add $t4, $t4, 1
 	j BIG_BLACK_LOOP
 	BIG_GET_OUT:
 	
