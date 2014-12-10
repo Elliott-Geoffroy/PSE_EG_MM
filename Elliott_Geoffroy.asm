@@ -222,10 +222,10 @@ colonneNValide:
 	notGood:
 	end_loop_colNValide1:
 	bge $v0, 1, colNFalse
-		li 	$v0, 1
+		li 	$v0, 1 #colonnes OK (TRUE)
 		j out_col_val
 	colNFalse:
-		li 	$v0, 0
+		li 	$v0, 0 #colonnes NOT OK (FALSE)
 	out_col_val:	
 		
 	lw 		$ra, 0($sp)
