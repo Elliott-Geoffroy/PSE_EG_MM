@@ -1,9 +1,10 @@
 .data
 grille: .byte 81
 varcol: .word 23
-varco2: .byte 2
-varco3: .byte 2
+varco2: .word 23
+varco3: .word 23
 
+varTest: .word 23
 .text
 
 # Effectue un retour a la ligne a l'ecran
@@ -512,9 +513,9 @@ sub 	$sp, $sp, 4
 			BLACK_LOOP:
 				sb $t3, ($t2)
 				
-				sw $t1, varco1
+				sw $t1, varTest
 				jal sudokuValides
-				lw $t1, varco1
+				lw $t1, varTest
 			
 				
 				
