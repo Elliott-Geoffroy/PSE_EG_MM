@@ -693,6 +693,7 @@ main:
 	jal carreNValide
 	move $a0 $v1
 	li $v0,  1
+	syscall
 	
 	jal colonnesValides
 	move $a0 $v1
