@@ -499,6 +499,28 @@ jr $ra
 
 
 rechercheAlgo:
+sub 	$sp, $sp, 4
+	sw 	$ra, 0($sp)
+	
+	
+	li $t1, 0
+	BIG_BLACK_LOOP:
+		add 	$t2, $t0, $t1			
+			lb	$a0, ($t2)
+		
+		li $v0, 1
+		syscall
+		
+		
+		
+		beq $t1, 80, GET_OUT
+		add $t1, $t1, 1
+	j BIG_BLACK_LOOP
+	GET_OUT:
+		lw 		$ra, 0($sp)
+	add 	$sp, $sp, 4
+jr $ra
+
 
 # Fin de la zone de déclaration de vos fonctions
 
@@ -554,14 +576,14 @@ main:
 	#syscall
 	#jal newLine
 
-	jal sudokuValides
-	jal newLine
-	move $a0 $v1
-	li $v0,  1
-	syscall
-	jal newLine
+	#jal sudokuValides
+	#jal newLine
+	#move $a0 $v1
+	#li $v0,  1
+	#syscall
+	#jal newLine
 	
-
+	jal rechercheAlgo
 	
 
 # Fin de la zone d'appel de fonctions.
