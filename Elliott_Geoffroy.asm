@@ -382,7 +382,7 @@ sub 	$sp, $sp, 4
 		
 		move $a0 $v1
 		li $v0, 1
-		sycall
+		syscall
 		
 		add $a1, $a1, $v1
 		beq $a3, 8, end_loop_all_colonnes
