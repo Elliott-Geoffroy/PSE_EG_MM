@@ -397,46 +397,73 @@ sub 	$sp, $sp, 4
 	jal colonneNValide
 	lw $a1, varcol
 	add $a1, $a1 , $v1
+	move $a0 $v1
+	li $v0,  1
+	syscall
 	li $a3 1
 	sw $a1, varcol
 	jal colonneNValide
 	lw $a1, varcol
 	add $a1, $a1 , $v1
+	move $a0 $v1
+	li $v0,  1
+	syscall
 	li $a3 2
 	sw $a1, varcol
 	jal colonneNValide
 	lw $a1, varcol
 	add $a1, $a1 , $v1
+	move $a0 $v1
+	li $v0,  1
+	syscall
 	li $a3 3
 	sw $a1, varcol
 	jal colonneNValide
 	lw $a1, varcol
 	add $a1, $a1 , $v1
+	move $a0 $v1
+	li $v0,  1
+	syscall
 	li $a3 4
 	sw $a1, varcol
 	jal colonneNValide
 	lw $a1, varcol
 	add $a1, $a1 , $v1
+	move $a0 $v1
+	li $v0,  1
+	syscall
 	li $a3 5
 	sw $a1, varcol
 	jal colonneNValide
 	lw $a1, varcol
 	add $a1, $a1 , $v1
+	move $a0 $v1
+	li $v0,  1
+	syscall
 	li $a3 6
 	sw $a1, varcol
 	jal colonneNValide
 	lw $a1, varcol
 	add $a1, $a1 , $v1
+	move $a0 $v1
+	li $v0,  1
+	syscall
 	li $a3 7
 	sw $a1, varcol
 	jal colonneNValide
 	lw $a1, varcol
 	add $a1, $a1 , $v1
+	move $a0 $v1
+	li $v0,  1
+	syscall
 	li $a3 8
 	sw $a1, varcol
 	jal colonneNValide
 	lw $a1, varcol
 	add $a1, $a1 , $v1
+	move $a0 $v1
+	li $v0,  1
+	syscall
 	
 
 	bne $a1, 9, allColFalse
