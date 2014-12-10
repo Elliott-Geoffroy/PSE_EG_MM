@@ -618,14 +618,28 @@ sub 	$sp, $sp, 4
 	jal colonnesValides
 	lw $a1, varco2
 	add $a1, $a1 , $v1
+	
+	move $a0 $v1
+	li $v0,  1
+	syscall
+	
 	sw $a1, varco2
 	jal lignesValides
 	lw $a1, varco2
 	add $a1, $a1 , $v1
+	
+	move $a0 $v1
+	li $v0,  1
+	syscall
+	
 	sw $a1, varco2
 	jal carresValides
 	lw $a1, varco2
 	add $a1, $a1 , $v1
+	
+	move $a0 $v1
+	li $v0,  1
+	syscall
 	
 	bne $a1, 3, allsudFalse
 		li 	$v1, 1 #sudoku OK (TRUE)
