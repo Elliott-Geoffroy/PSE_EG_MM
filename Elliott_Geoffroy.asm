@@ -379,7 +379,7 @@ sub 	$sp, $sp, 4
 	
 	
 	li $a3, 0				 
-	li $a1, 0				
+	li $t7, 0				
 	loop_all_colonnes:
 		
 			
@@ -390,7 +390,7 @@ sub 	$sp, $sp, 4
 		li $v0, 1
 	syscall
 		
-		add $a1, $a1, $v1
+		add $t7, $t7, $v1
 		beq $a3, 8, end_loop_all_colonnes
 		add $a3, $a3, 1
 j loop_all_colonnes
@@ -398,7 +398,7 @@ j loop_all_colonnes
 	
 	
 
-	bne $a1, 9, allColFalse
+	bne $t7, 9, allColFalse
 		li 	$v1, 1 #colonnes OK (TRUE)
 		j out_allCol_val
 	allColFalse:
@@ -416,7 +416,7 @@ sub 	$sp, $sp, 4
 	sw 	$ra, 0($sp)
 
 	li $a3, 0				 
-	li $a1, 0				
+	li $t7, 0				
 	loop_all_lignes:
 		
 			
@@ -427,13 +427,13 @@ sub 	$sp, $sp, 4
 		li $v0, 1
 	syscall
 		
-		add $a1, $a1, $v1
+		add $t7, $t7, $t7
 		beq $a3, 8, end_loop_all_lignes
 		add $a3, $a3, 1
 j loop_all_lignes
 	end_loop_all_lignes:
 
-	bne $a1, 9, allliFalse
+	bne $t7, 9, allliFalse
 		li 	$v1, 1 #lignes OK (TRUE)
 		j out_allli_val
 	allliFalse:
