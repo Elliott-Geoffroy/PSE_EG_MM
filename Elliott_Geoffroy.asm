@@ -292,6 +292,7 @@ sub 	$sp, $sp, 4
 	li 	$a1, 1 
 	loop_carNValide1: #recherche $a1 dans la carre $a3
 		li	$v1, 0
+		li	$a2, 0
 		li 	$a2, $a3
 		li	$t1, 0
 		
