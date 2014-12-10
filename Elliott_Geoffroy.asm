@@ -369,13 +369,13 @@ sub 	$sp, $sp, 4
 	sw 	$ra, 0($sp)
 	
 	
-	li $a3, 0
-	li $a1, 0
+	li 	$a3, 0
+	li 	$a0, 0
 	li 	$v1, 0
 	loop_all_colonnes:
 		jal colonneNValide
-		add $a1, $a1, $v1
-		move $a0 $v1
+		add $a0, $a0, $v1
+		
 		li $v0,  1
 		syscall
 		
@@ -386,11 +386,11 @@ sub 	$sp, $sp, 4
 	
 	jal newLine
 	
-	move $a0 $a1
+	
 	li $v0,  1
 	syscall
 	
-	bne $a1, 9, allColFalse
+	bne $a0, 9, allColFalse
 		li 	$v1, 1 #carre OK (TRUE)
 		j out_allCol_val
 	allColFalse:
