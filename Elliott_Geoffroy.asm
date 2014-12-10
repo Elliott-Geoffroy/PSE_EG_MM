@@ -222,9 +222,7 @@ colonneNValide:
 		add 	$a1, $a1, 1
 	j loop_colNValide1
 	
-		move $a0 $v1
-		li $v0, 1
-	syscall
+	
 	
 	notGoodcol:
 	end_loop_colNValide1:
@@ -234,6 +232,10 @@ colonneNValide:
 	colNFalse:
 		li 	$v1, 0 #colonnes NOT OK (FALSE)
 	out_col_val:	
+		
+			move $a0 $v1
+		li $v0, 1
+		syscall
 		
 	lw 		$ra, 0($sp)
 	add 	$sp, $sp, 4
@@ -274,10 +276,7 @@ sub 	$sp, $sp, 4
 		add 	$a1, $a1, 1
 	j loop_liNValide1
 	
-		move $a0 $v1
-		li $v0, 1
-	syscall
-	
+
 	notGoodli:
 	end_loop_liNValide1:
 	bgt $v1, 1, liNFalse
@@ -286,6 +285,10 @@ sub 	$sp, $sp, 4
 	liNFalse:
 		li 	$v1, 0 #ligne NOT OK (FALSE)
 	out_li_val:	
+		
+			move $a0 $v1
+		li $v0, 1
+		syscall
 		
 	lw 		$ra, 0($sp)
 	add 	$sp, $sp, 4
@@ -360,10 +363,7 @@ sub 	$sp, $sp, 4
 		add 	$a1, $a1, 1
 	j loop_carNValide1
 	
-		move $a0 $v1
-		li $v0, 1
-	syscall
-	
+
 	notGoodcar:
 	end_loop_carNValide1:
 	bgt $v1, 1, carNFalse
@@ -372,7 +372,11 @@ sub 	$sp, $sp, 4
 	carNFalse:
 		li 	$v1, 0 #carre NOT OK (FALSE)
 	out_car_val:	
-		
+	
+		move $a0 $v1
+		li $v0, 1
+		syscall
+					
 	lw 		$ra, 0($sp)
 	add 	$sp, $sp, 4
 jr $ra
