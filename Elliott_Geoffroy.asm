@@ -373,7 +373,7 @@ sub 	$sp, $sp, 4
 	
 	li $a3, 0
 	li $a1, 0
-	li 	$v1, 0
+	li $v1, 0
 	loop_all_colonnes:
 		sw $a1, varcol
 		jal colonneNValide
@@ -424,11 +424,11 @@ main:
 	#li $v0,  1
 	#syscall
 	
-	#li $a3 0
-	#jal colonneNValide
-	#move $a0 $v1
-	#li $v0,  1
-	#syscall
+	li $a3 4
+	jal colonneNValide
+	move $a0 $v1
+	li $v0,  1
+	syscall
 	
 	#li $a3 0
 	#jal carreNValide
@@ -437,11 +437,11 @@ main:
 	#syscall
 	#jal newLine
 	
-	jal colonnesValides
-	move $a0 $v1
-	li $v0,  1
-	syscall
-	jal newLine
+	#jal colonnesValides
+	#move $a0 $v1
+	#li $v0,  1
+	#syscall
+	#jal newLine
 
 # Fin de la zone d'appel de fonctions.
 jal newLine
