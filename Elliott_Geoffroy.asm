@@ -448,71 +448,29 @@ carresValides:
 sub 	$sp, $sp, 4
 	sw 	$ra, 0($sp)
 
-	#li $a3, 0				 
-	#li $a1, 0				
-	#loop_all_carre:
-	#	sw $a1, varcol
+	li $a3, 0				 
+	li $a1, 0				
+	loop_all_carre:
+		sw $a1, varcol
 			
-	#jal carreNValide
-	#	lw $a1, varcol
+	jal carreNValide
+		lw $a1, varcol
 		
-	#	move $a0 $v1
-	#	li $v0, 1
-	#syscall
+		move $a0 $v1
+		li $v0, 1
+		syscall
 		
-	#	add $a1, $a1, $v1
-	#	beq $a3, 8, end_loop_all_carre
-	#	add $a3, $a3, 1
-	#j loop_all_carre
-	#end_loop_all_carre:
-		li $a3 0
-	jalr carreNValide
-	bne $v1, 1, carreNOOK
-	
-		li $a3 1
-	jalr carreNValide
-	bne $v1, 1, carreNOOK
-	
-	
-		li $a3 2
-	jalr carreNValide
-	bne $v1, 1, carreNOOK
-	
-	
-		li $a3 3
-	jalr carreNValide
-	bne $v1, 1, carreNOOK
-	
-	
-		li $a3 4
-	jalr carreNValide
-	bne $v1, 1, carreNOOK
-	
-	
-		li $a3 5
-	jalr carreNValide
-	bne $v1, 1, carreNOOK
-	
-	
-		li $a3 6
-	jalr carreNValide
-	bne $v1, 1, carreNOOK
-	
-	
-		li $a3 7
-	jalr carreNValide
-	bne $v1, 1, carreNOOK
-	
-	
-		li $a3 8
-	jalr carreNValide
-	bne $v1, 1, carreNOOK
+		add $a1, $a1, $v1
+		beq $a3, 8, end_loop_all_carre
+		add $a3, $a3, 1
+	j loop_all_carre
+	end_loop_all_carre:
 	
 
-	carreOK:
+	bne $a1, 9, allcarFalse
 		li 	$v1, 1 #carre OK (TRUE)
 		j out_allcar_val
-	carreNOOK:
+	allcarFalse:
 		li 	$v1, 0 #carre NOT OK (FALSE)
 	out_allcar_val:	
 
@@ -538,7 +496,7 @@ sub 	$sp, $sp, 4
 	lw $a1, varco2
 	add $a1, $a1 , $v1
 	
-	sw $a1, varco2
+		sw $a1, varco2
 	jal carresValides
 	lw $a1, varco2
 	add $a1, $a1 , $v1
@@ -590,33 +548,33 @@ main:
 	#syscall
 	#jal newLine
 	
-	jal colonnesValides
-	jal newLine
-	move $a0 $v1
-	li $v0,  1
-	syscall
-	jal newLine
+	#jal colonnesValides
+	#jal newLine
+	#move $a0 $v1
+	#li $v0,  1
+	#syscall
+	#jal newLine
 	
-	jal lignesValides
-	jal newLine
-	move $a0 $v1
-	li $v0,  1
-	syscall
-	jal newLine
+	#jal lignesValides
+	#jal newLine
+	#move $a0 $v1
+	#li $v0,  1
+	#syscall
+	#jal newLine
 	
-	jal carresValides
-	jal newLine
-	move $a0 $v1
-	li $v0,  1
-	syscall
-	jal newLine
+	#jal carresValides
+	#jal newLine
+	#move $a0 $v1
+	#li $v0,  1
+	#syscall
+	#jal newLine
 
-	jal sudokuValides
-	jal newLine
-	move $a0 $v1
-	li $v0,  1
-	syscall
-	jal newLine
+	#jal sudokuValides
+	#jal newLine
+	#move $a0 $v1
+	#li $v0,  1
+	#syscall
+	#jal newLine
 	
 
 	
