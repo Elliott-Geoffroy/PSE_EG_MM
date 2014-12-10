@@ -199,13 +199,14 @@ colonneNValide:
 	loop_colNValide1: #recherche $a1 dans la colonne $a3
 		li	$v1, 0
 		li 	$a2, 1
-		mul	$t1, 9, $a3
+		li	$t1, 0
+		mul	$t1, $a3, 9
 			loop_recherche_col:
 				#$a3 charge la cellule
 				#beq $a1 $a3
 				add 	$t2, $t0, $t1			
 				lb	$a0, ($t2)				
-				li $v0, 1
+				li 	$v0, 1
 				syscall
 				
 				bne $a0, $a1, notequalCol 
