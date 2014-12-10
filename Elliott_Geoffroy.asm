@@ -470,15 +470,65 @@ sub 	$sp, $sp, 4
 	li $a1, 0
 	
 	li $a3, 0
+	sw $a1, varcol
 	jal ligneNValide
+	lw $a1, varcol
+	add $a1, $a1 , $v1
+	
+	li $a3, 1
+	sw $a1, varcol
+	jal ligneNValide
+	lw $a1, varcol
+	add $a1, $a1 , $v1
+	
+	li $a3, 2
+	sw $a1, varcol
+	jal ligneNValide
+	lw $a1, varcol
+	add $a1, $a1 , $v1
+	
+	li $a3, 3
+	sw $a1, varcol
+	jal ligneNValide
+	lw $a1, varcol
+	add $a1, $a1 , $v1
+	
+	li $a3, 4
+	sw $a1, varcol
+	jal ligneNValide
+	lw $a1, varcol
+	add $a1, $a1 , $v1
+	
+	li $a3, 5
+	sw $a1, varcol
+	jal ligneNValide
+	lw $a1, varcol
+	add $a1, $a1 , $v1
+	
+	li $a3, 6
+	sw $a1, varcol
+	jal ligneNValide
+	lw $a1, varcol
+	add $a1, $a1 , $v1
+	
+	li $a3, 7
+	sw $a1, varcol
+	jal ligneNValide
+	lw $a1, varcol
+	add $a1, $a1 , $v1
+	
+	li $a3, 8
+	sw $a1, varcol
+	jal ligneNValide
+	lw $a1, varcol
+	add $a1, $a1 , $v1
 
-
-	bne $a1, 9, allColFalse
+	bne $a1, 9, allliFalse
 		li 	$v1, 1 #carre OK (TRUE)
-		j out_allCol_val
-	allColFalse:
+		j out_allli_val
+	allliFalse:
 		li 	$v1, 0 #carre NOT OK (FALSE)
-	out_allCol_val:	
+	out_allli_val:	
 
 	
 	lw 		$ra, 0($sp)
@@ -524,6 +574,12 @@ main:
 	#jal newLine
 	
 	jal colonnesValides
+	move $a0 $v1
+	li $v0,  1
+	syscall
+	jal newLine
+	
+	jal lignesValides
 	move $a0 $v1
 	li $v0,  1
 	syscall
