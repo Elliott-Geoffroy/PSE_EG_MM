@@ -449,7 +449,7 @@ sub 	$sp, $sp, 4
 	sw 	$ra, 0($sp)
 
 	li $a3, 0				 
-	li $a1, 0				
+	li $t7, 0				
 	loop_all_carre:
 		
 			
@@ -460,14 +460,14 @@ sub 	$sp, $sp, 4
 		li $v0, 1
 		syscall
 		
-		add $a1, $a1, $v1
+		add $t7, $t7, $v1
 		beq $a3, 8, end_loop_all_carre
 		add $a3, $a3, 1
 	j loop_all_carre
 	end_loop_all_carre:
 	
 
-	bne $a1, 9, allcarFalse
+	bne $t7, 9, allcarFalse
 		li 	$v1, 1 #carre OK (TRUE)
 		j out_allcar_val
 	allcarFalse:
