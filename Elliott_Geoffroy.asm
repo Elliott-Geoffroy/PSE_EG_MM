@@ -2,7 +2,7 @@
 grille: .byte 81
 varcol: .word 23
 varco2: .word 23
-
+varco3: .word 23
 
 .text
 
@@ -374,7 +374,7 @@ sub 	$sp, $sp, 4
 	loop_all_colonnes:
 		sw $a1, varcol
 			
-	jal colonneNValide
+		jal colonneNValide
 		lw $a1, varcol
 		
 		move $a0 $v1
@@ -443,10 +443,10 @@ sub 	$sp, $sp, 4
 	li $a1, 0				
 	loop_all_carre:
 		sw $a1, varcol
-			
+		sw $a3, varco3	
 	jal carreNValide
 		lw $a1, varcol
-		
+		lw $a3, varco3
 		move $a0 $v1
 		li $v0, 1
 	syscall
