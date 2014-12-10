@@ -512,8 +512,8 @@ sub 	$sp, $sp, 4
 			BLACK_LOOP:
 				sb $t3, ($t2)
 				
-			
-			
+				jal sudokuValides
+					
 			
 				
 				
