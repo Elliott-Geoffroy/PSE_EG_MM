@@ -403,48 +403,56 @@ main:
 	move $a0 $v1
 	li $v0,  1
 	syscall
+	jal newLine
 	
 	li $a3 1
 	jal carreNValide
 	move $a0 $v1
 	li $v0,  1
 	syscall
+	jal newLine
 	
 	li $a3 2
 	jal carreNValide
 	move $a0 $v1
 	li $v0,  1
 	syscall
+	jal newLine
 	
 	li $a3 3
 	jal carreNValide
 	move $a0 $v1
 	li $v0,  1
 	syscall
+	jal newLine
 	
 	li $a3 4
 	jal carreNValide
 	move $a0 $v1
 	li $v0,  1
 	syscall
+	jal newLine
 	
 	li $a3 5
 	jal carreNValide
 	move $a0 $v1
 	li $v0,  1
 	syscall
+	jal newLine
 	
 	li $a3 6
 	jal carreNValide
 	move $a0 $v1
 	li $v0,  1
 	syscall
+	jal newLine
 	
 	li $a3 7
 	jal carreNValide
 	move $a0 $v1
 	li $v0,  1
 	syscall
+	jal newLine
 	
 	li $a3 8
 	jal carreNValide
