@@ -328,10 +328,7 @@ sub 	$sp, $sp, 4
 				#$a3 charge la cellule
 				#beq $a1 $a3
 				add 	$t2, $t0, $t1			
-				lb	$a0, ($t2)	
-				
-				li $v0, 1
-				syscall			
+				lb	$a0, ($t2)				
 													
 				bne 	$a0, $a1, notequalcar 
 				add 	$v1, $v1, 1
