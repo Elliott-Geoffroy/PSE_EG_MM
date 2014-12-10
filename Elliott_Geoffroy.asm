@@ -540,25 +540,25 @@ main:
 	#syscall
 	#jal newLine
 	
-	jal colonnesValides
+	j colonnesValides
 	move $a0 $v1
 	li $v0,  1
 	syscall
 	jal newLine
 	
-	jal lignesValides
+	j lignesValides
 	move $a0 $v1
 	li $v0,  1
 	syscall
 	jal newLine
 	
-jal carresValides
+	j carresValides
 	move $a0 $v1
 	li $v0,  1
 	syscall
 	jal newLine
 
-	jal sudokuValides
+	j sudokuValides
 	move $a0 $v1
 	li $v0,  1
 	syscall
