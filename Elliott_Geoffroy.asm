@@ -374,7 +374,7 @@ sub 	$sp, $sp, 4
 	loop_all_colonnes:
 		sw $a1, varcol
 			
-	j colonneNValide
+	jal colonneNValide
 		lw $a1, varcol
 		
 		move $a0 $v1
@@ -411,7 +411,7 @@ sub 	$sp, $sp, 4
 	loop_all_lignes:
 		sw $a1, varcol
 			
-	j ligneNValide
+	jal ligneNValide
 		lw $a1, varcol
 		
 		move $a0 $v1
@@ -444,7 +444,7 @@ sub 	$sp, $sp, 4
 	loop_all_carre:
 		sw $a1, varcol
 			
-	j carreNValide
+	jal carreNValide
 		lw $a1, varcol
 		
 		move $a0 $v1
@@ -540,25 +540,25 @@ main:
 	#syscall
 	#jal newLine
 	
-	j colonnesValides
+	jal colonnesValides
 	move $a0 $v1
 	li $v0,  1
 	syscall
 	jal newLine
 	
-	j lignesValides
+	jal lignesValides
 	move $a0 $v1
 	li $v0,  1
 	syscall
 	jal newLine
 	
-	j carresValides
+	jal carresValides
 	move $a0 $v1
 	li $v0,  1
 	syscall
 	jal newLine
 
-	j sudokuValides
+	jal sudokuValides
 	move $a0 $v1
 	li $v0,  1
 	syscall
