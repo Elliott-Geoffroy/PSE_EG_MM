@@ -188,7 +188,7 @@ printArrayGrid:
 #Verifie si la colonne N est valide
 #	$a3 numero de colonne
 # resultat dans $v1
-# Registres utilises : $a[0-3], $v[0-1], $t[0-2]
+# Registres utilises : $a[0-3], $v1, $t[0-2]
 colonneNValide:
 
 	sub 	$sp, $sp, 4
@@ -205,11 +205,7 @@ colonneNValide:
 				#$a3 charge la cellule
 				#beq $a1 $a3
 				add 	$t2, $t0, $t1			
-				lb	$a0, ($t2)		
-				
-				li $v0, 1
-				syscall
-								
+				lb	$a0, ($t2)						
 				bne 	$a0, $a1, notequalCol 
 				add 	$v1, $v1, 1
 				notequalCol:
@@ -218,12 +214,12 @@ colonneNValide:
 				add 	$t1, $t1, 9
 			j loop_recherche_col	
 			end_loop_recherche_col:
-		bgt 	$v1, 1, notGood
+		bgt 	$v1, 1, notGoodcol
 		beq	$a1, 9, end_loop_colNValide1
 		add 	$a1, $a1, 1
 	j loop_colNValide1
 	
-	notGood:
+	notGoodcol:
 	end_loop_colNValide1:
 	bgt $v1, 1, colNFalse
 		li 	$v1, 1 #colonnes OK (TRUE)
@@ -248,44 +244,124 @@ sub 	$sp, $sp, 4
 	
 	
 	li 	$a1, 1 
-	loop_colNValide1: #recherche $a1 dans la ligne $a3
+	loop_liNValide1: #recherche $a1 dans la ligne $a3
 		li	$v1, 0
 		li 	$a2, 1
 		li	$t1, 0
 		mul	$t1, $a3, 9
-			loop_recherche_col:
+			loop_recherche_li:
 				#$a3 charge la cellule
 				#beq $a1 $a3
 				add 	$t2, $t0, $t1			
 				lb	$a0, ($t2)				
-				bne 	$a0, $a1, notequalCol 
+				bne 	$a0, $a1, notequalli
 				add 	$v1, $v1, 1
-				notequalCol:
-				beq	$a2, 9, end_loop_recherche_col
+				notequalli:
+				beq	$a2, 9, end_loop_recherche_li
 				add 	$a2, $a2, 1
 				add 	$t1, $t1, 1
-			j loop_recherche_col	
-			end_loop_recherche_col:
-		bgt 	$v1, 1, notGood
-		beq	$a1, 9, end_loop_colNValide1
+			j loop_recherche_li	
+			end_loop_recherche_li:
+		bgt 	$v1, 1, notGoodli
+		beq	$a1, 9, end_loop_liNValide1
 		add 	$a1, $a1, 1
-	j loop_colNValide1
+	j loop_liNValide1
 	
-	notGood:
-	end_loop_colNValide1:
-	bgt $v1, 1, colNFalse
+	notGoodli:
+	end_loop_liNValide1:
+	bgt $v1, 1, liNFalse
 		li 	$v1, 1 #ligne OK (TRUE)
-		j out_col_val
-	colNFalse:
+		j out_li_val
+	liNFalse:
 		li 	$v1, 0 #ligne NOT OK (FALSE)
-	out_col_val:	
+	out_li_val:	
 		
 	lw 		$ra, 0($sp)
 	add 	$sp, $sp, 4
 	jr $ra
-
+	
+#Verifie si le carre N est valide
+#	$a3 numero de carre
+# resultat dans $v1
+# Registres utilises : $a[0-3], $v[0-1], $t[0-2]
 carreNValide:
+sub 	$sp, $sp, 4
+	sw 	$ra, 0($sp)
+	
+	
+	li 	$a1, 1 
+	loop_carNValide1: #recherche $a1 dans la carre $a3
+		li	$v1, 0
+		li 	$a2, 1
+		li	$t1, 0
+		
+		ble	$a3, 2, troisPremiers
+		ble	$a3, 5, troisSeconds
+		ble	$a3, 8, troisTiers
+		troisPremiers:
+		mul 	$t1, $a3, 3
+		j out_Trois
+		troisSeconds:
+		li	$t1, 27
+		sub	$a3, $a3, 3
+		mul	$a3, $a3, 3
+		add	$t1, $t1, $a3
 
+		j out_Trois
+		troisTiers:
+		li	$t1, 54
+		sub	$a3, $a3, 6
+		mul	$a3, $a3, 3
+		add	$t1, $t1, $a3
+
+		j out_Trois
+		out_Trois:
+		
+		
+		
+			loop_recherche_car:
+				#$a3 charge la cellule
+				#beq $a1 $a3
+				add 	$t2, $t0, $t1			
+				lb	$a0, ($t2)	
+				
+				li $v0, 1
+				syscall			
+													
+				bne 	$a0, $a1, notequalcar 
+				add 	$v1, $v1, 1
+				notequalcar:
+				beq	$a2, 9, end_loop_recherche_car
+				
+				beq $a2, 3, changeLigne
+				beq $a2, 6, changeLigne
+				add $t1, $t1, 1
+				j notChangeLigne
+				changeLigne:
+				add $t1, $t1, 7
+				notChangeLigne:
+				
+				add 	$a2, $a2, 1
+				
+			j loop_recherche_car	
+			end_loop_recherche_car:
+		bgt 	$v1, 1, notGoodcar
+		beq	$a1, 9, end_loop_carNValide1
+		add 	$a1, $a1, 1
+	j loop_carNValide1
+	
+	notGoodcar:
+	end_loop_carNValide1:
+	bgt $v1, 1, carNFalse
+		li 	$v1, 1 #carre OK (TRUE)
+		j out_car_val
+	carNFalse:
+		li 	$v1, 0 #carre NOT OK (FALSE)
+	out_car_val:	
+		
+	lw 		$ra, 0($sp)
+	add 	$sp, $sp, 4
+	jr $ra
 colonnesValides:
 
 lignesValides:
@@ -316,60 +392,65 @@ main:
 	#li $v0,  1
 	#syscall
 	
+	#li $a3 0
+	#jal colonneNValide
+	#move $a0 $v1
+	#li $v0,  1
+	#syscall
+	
 	li $a3 0
-	jal colonneNValide
+	jal carreNValide
 	move $a0 $v1
 	li $v0,  1
 	syscall
-	jal newLine
+	
 	li $a3 1
-	jal colonneNValide
+	jal carreNValide
 	move $a0 $v1
 	li $v0,  1
 	syscall
-	jal newLine
+	
 	li $a3 2
-	jal colonneNValide
+	jal carreNValide
 	move $a0 $v1
 	li $v0,  1
 	syscall
-	jal newLine
+	
 	li $a3 3
-	jal colonneNValide
+	jal carreNValide
 	move $a0 $v1
 	li $v0,  1
 	syscall
-	jal newLine
+	
 	li $a3 4
-	jal colonneNValide
+	jal carreNValide
 	move $a0 $v1
 	li $v0,  1
 	syscall
-	jal newLine
+	
 	li $a3 5
-	jal colonneNValide
+	jal carreNValide
 	move $a0 $v1
 	li $v0,  1
 	syscall
-	jal newLine
+	
 	li $a3 6
-	jal colonneNValide
+	jal carreNValide
 	move $a0 $v1
 	li $v0,  1
 	syscall
-	jal newLine
+	
 	li $a3 7
-	jal colonneNValide
+	jal carreNValide
 	move $a0 $v1
 	li $v0,  1
 	syscall
-	jal newLine
+	
 	li $a3 8
-	jal colonneNValide
+	jal carreNValide
 	move $a0 $v1
 	li $v0,  1
 	syscall
-	jal newLine
 
 # Fin de la zone d'appel de fonctions.
 jal newLine
