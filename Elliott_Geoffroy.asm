@@ -1,6 +1,6 @@
 .data
 grille: .byte 81
-varcol: .byte 2
+varcol: .word 
 varco2: .byte 2
 varco3: .byte 2
 
@@ -512,8 +512,9 @@ sub 	$sp, $sp, 4
 			BLACK_LOOP:
 				sb $t3, ($t2)
 				
+				sw $t1, varco1
 				jal sudokuValides
-					
+				lw $t1, varco1
 			
 				
 				
