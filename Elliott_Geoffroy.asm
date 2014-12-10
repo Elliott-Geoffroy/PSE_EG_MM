@@ -482,32 +482,16 @@ sub 	$sp, $sp, 4
 	lw $a1, varco2
 	add $a1, $a1 , $v1
 	
-	move $a0 $v1
-	li $v0,  1
-	syscall
-	
-	
-
-	
 	sw $a1, varco2
 	j colonnesValides
 	lw $a1, varco2
 	add $a1, $a1 , $v1
-	
-	move $a0 $v1
-	li $v0,  1
-	syscall
-	
 
 	sw $a1, varco2
 	j lignesValides
 	lw $a1, varco2
 	add $a1, $a1 , $v1
 	
-	move $a0 $v1
-	li $v0,  1
-	syscall
-
 	
 	bne $a1, 3, allsudFalse
 		li 	$v1, 1 #sudoku OK (TRUE)
@@ -556,23 +540,23 @@ main:
 	#syscall
 	#jal newLine
 	
-	jal colonnesValides
-	move $a0 $v1
-	li $v0,  1
-	syscall
-	jal newLine
+	#jal colonnesValides
+	#move $a0 $v1
+	#li $v0,  1
+	#syscall
+	#jal newLine
 	
-	jal lignesValides
-	move $a0 $v1
-	li $v0,  1
-	syscall
-	jal newLine
+	#jal lignesValides
+	#move $a0 $v1
+	#li $v0,  1
+	#syscall
+	#jal newLine
 	
-	jal carresValides
-	move $a0 $v1
-	li $v0,  1
-	syscall
-	jal newLine
+	#jal carresValides
+	#move $a0 $v1
+	#li $v0,  1
+	#syscall
+	#jal newLine
 
 	jal sudokuValides
 	move $a0 $v1
