@@ -540,8 +540,6 @@ sub 	$sp, $sp, 4
 	j BIG_BLACK_LOOP
 	BIG_GET_OUT:
 	
-	jal printArrayGrid
-	
 		lw 		$ra, 0($sp)
 	add 	$sp, $sp, 4
 jr $ra
